@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The PHP Patch</title>
+<meta name="description" content="PHP2Shell, the PHP patch of 21 October 2026: what it means, who is exposed, and what it takes to fix a server. Version checker, fix planner and charts.">
+<link rel="canonical" href="https://nanobotco.github.io/php-patch/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The PHP Patch: update PHP today">
+<meta property="og:description" content="PHP2Shell, 21 October 2026. What it means, who is exposed, what it takes to fix. Check your PHP version in one paste.">
+<meta property="og:url" content="https://nanobotco.github.io/php-patch/">
+<meta property="og:image" content="https://nanobotco.github.io/php-patch/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The PHP Patch. A grid of servers turning from red to green. Update PHP today.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nanobotco.github.io/php-patch/card.png">
+<meta name="theme-color" content="#0d0b1a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0b1a'/%3E%3Crect x='6' y='6' width='8' height='8' rx='2' fill='%230ca30c'/%3E%3Crect x='18' y='6' width='8' height='8' rx='2' fill='%230ca30c'/%3E%3Crect x='6' y='18' width='8' height='8' rx='2' fill='%230ca30c'/%3E%3Crect x='18' y='18' width='8' height='8' rx='2' fill='%23d03b3b'/%3E%3C/svg%3E">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f6f4ee; --surface:#fcfcfb; --surface-2:#efece3; --ink:#0b0b0b; --ink-2:#52514e; --muted:#6c6a64;
+  --line:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --accent:#5b4bd6; --accent-ink:#4434b8; --hot:#d6224d; --hot-soft:rgba(214,34,77,.12);
+  --code-bg:#15122b; --code-ink:#ebe8ff; --code-dim:#9c97c7;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --good-ink:#006300; --warn-ink:#7a4f00; --crit-ink:#b42323;
+  --series:#2a78d6; --idle:#dcd8ea;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#0d0b1a; --surface:#17142b; --surface-2:#1f1b38; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#a19fb3;
+    --line:#2c2a40; --axis:#3d3a55; --ring:rgba(255,255,255,.10);
+    --accent:#9d8cff; --accent-ink:#b9adff; --hot:#ff4f7b; --hot-soft:rgba(255,79,123,.16);
+    --code-bg:#08070f; --code-ink:#ebe8ff; --code-dim:#8e89b8;
+    --good-ink:#2fd12f; --warn-ink:#fab219; --crit-ink:#ff7676;
+    --series:#3987e5; --idle:#2a2550;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#0d0b1a; --surface:#17142b; --surface-2:#1f1b38; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#a19fb3;
+  --line:#2c2a40; --axis:#3d3a55; --ring:rgba(255,255,255,.10);
+  --accent:#9d8cff; --accent-ink:#b9adff; --hot:#ff4f7b; --hot-soft:rgba(255,79,123,.16);
+  --code-bg:#08070f; --code-ink:#ebe8ff; --code-dim:#8e89b8;
+  --good-ink:#2fd12f; --warn-ink:#fab219; --crit-ink:#ff7676;
+  --series:#3987e5; --idle:#2a2550;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+a{color:var(--accent-ink)}
+code,pre{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.92em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font:inherit;cursor:pointer}
+
+/* hero */
+.hero{position:relative;padding:28px 0 40px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(60% 70% at 85% 10%, var(--hot-soft), transparent 70%),
+  radial-gradient(50% 60% at 10% 95%, color-mix(in srgb, var(--good) 14%, transparent), transparent 70%)}
+.kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;position:relative}
+.kicker b{color:var(--hot)}
+h1{font-size:clamp(36px,6.6vw,66px);line-height:1.03;letter-spacing:-.02em;margin:10px 0 14px;font-weight:800;max-width:13ch}
+h1 em{font-style:normal;color:var(--good-ink)}
+.lede{font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:56ch;margin:0 0 22px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;position:relative}
+@media (max-width:820px){.hero-grid{grid-template-columns:1fr}}
+.wave{display:grid;grid-template-columns:repeat(12,1fr);gap:5px;padding:14px;background:var(--surface);border:1px solid var(--ring);border-radius:20px;box-shadow:0 18px 40px -26px rgba(0,0,0,.5)}
+.wave i{aspect-ratio:1;border-radius:5px;background:var(--crit);transition:background .5s ease, transform .5s ease;display:block}
+.wave i.on{background:var(--good)}
+.wave i.idle{background:var(--idle)}
+.wave-cap{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px;gap:8px;flex-wrap:wrap}
+.wave-cap b{color:var(--ink)}
+
+/* checker */
+.checker{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:16px;box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
+.checker label{font-weight:700;display:block;margin-bottom:6px}
+.checker .row{display:flex;gap:8px}
+.checker input{flex:1;min-width:0;font:15px ui-monospace,Menlo,monospace;padding:12px;border-radius:10px;border:1px solid var(--axis);background:var(--bg);color:var(--ink)}
+.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;background:var(--accent);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--axis)}
+:root[data-theme="dark"] .btn:not(.ghost){color:#120f26}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn:not(.ghost){color:#120f26}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--axis);background:transparent;color:var(--ink-2);border-radius:999px;padding:3px 10px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.verdict{margin-top:12px;border-radius:12px;padding:12px 14px;border-left:6px solid var(--axis);background:var(--surface-2);min-height:52px}
+.verdict h3{margin:0 0 4px;font-size:18px;display:flex;gap:8px;align-items:center}
+.verdict p{margin:4px 0 0;color:var(--ink-2);font-size:15px}
+.verdict.good{border-color:var(--good)} .verdict.good h3{color:var(--good-ink)}
+.verdict.warn{border-color:var(--warn)} .verdict.warn h3{color:var(--warn-ink)}
+.verdict.crit{border-color:var(--crit)} .verdict.crit h3{color:var(--crit-ink)}
+.ico{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:13px;font-weight:800;color:#fff;flex:none}
+.ico.good{background:var(--good)} .ico.warn{background:var(--warn);color:#2a1d00} .ico.crit{background:var(--crit)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px;position:relative}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:12px 14px}
+.stat b{display:block;font-size:clamp(26px,4vw,36px);line-height:1.1;letter-spacing:-.02em}
+.stat b small{font-size:.5em;color:var(--muted)}
+.stat span{font-size:14px;color:var(--ink-2)}
+
+nav.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.top .wrap::-webkit-scrollbar{display:none}
+nav.top a{flex:none;padding:12px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:15px;border-bottom:3px solid transparent}
+nav.top a.on{color:var(--ink);border-color:var(--hot)}
+
+section{padding:56px 0 24px;scroll-margin-top:48px}
+.eyebrow{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--hot);font-weight:700}
+h2{font-size:clamp(26px,4.2vw,40px);line-height:1.12;letter-spacing:-.015em;margin:6px 0 14px;max-width:24ch}
+h3{font-size:20px;line-height:1.3;margin:28px 0 8px}
+p{max-width:68ch}
+.muted{color:var(--muted)} .small{font-size:14px}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.tag{display:inline-block;font:600 12px ui-monospace,Menlo,monospace;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--ink-2)}
+
+/* fixed wide picture bands */
+.band{position:relative;height:min(60vh,500px);clip-path:inset(0);display:grid;place-items:center;text-align:center;color:#fff}
+.band .pic{position:fixed;inset:0;z-index:-1;background:#0d0b1a}
+.band .pic svg{width:100%;height:100%;display:block}
+.band .say{position:relative;max-width:22ch;font-size:clamp(26px,4.6vw,46px);font-weight:800;line-height:1.12;letter-spacing:-.015em;padding:0 16px;text-shadow:0 2px 24px rgba(0,0,0,.7)}
+.band .say small{display:block;font-size:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-top:14px}
+
+/* layer diagram */
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+@media (max-width:760px){.path{grid-template-columns:1fr}}
+.hop{border-radius:14px;padding:12px;background:var(--surface);border:1px solid var(--ring);font-size:14px}
+.hop b{display:block;font-size:15px;margin-bottom:2px}
+.hop.bug{border:2px solid var(--crit);background:var(--hot-soft)}
+.hop.bug b{color:var(--crit-ink)}
+.hop .lab{font:700 11px ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bug-card h4{margin:6px 0 6px;font-size:18px}
+.bug-card .score{display:flex;align-items:baseline;gap:8px}
+.bug-card .score b{font-size:34px;color:var(--crit-ink);letter-spacing:-.02em}
+.meter{height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden;margin:6px 0 10px}
+.meter i{display:block;height:100%;width:92%;background:linear-gradient(90deg,var(--warn),var(--crit));border-radius:5px}
+
+/* timeline */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 16px}
+.tabs button{border:1px solid var(--axis);background:transparent;color:var(--ink-2);border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:118px 22px 1fr;gap:10px;align-items:start}
+.tl .when{font:600 13px ui-monospace,Menlo,monospace;color:var(--ink-2);text-align:right;padding-top:2px}
+.tl .dot{width:14px;height:14px;border-radius:50%;background:var(--accent);margin:5px auto 0;box-shadow:0 0 0 4px var(--bg)}
+.tl .dot.hot{background:var(--hot)} .tl .dot.fix{background:var(--good)}
+.tl .what b{display:block}
+.tl .what span{color:var(--ink-2);font-size:15px}
+.tl li.gap{min-height:0}
+.tl li.gap .bar{width:2px;background:var(--axis);margin:0 auto}
+.tl li.gap em{font-style:normal;font:600 12px ui-monospace,Menlo,monospace;color:var(--muted);align-self:center}
+@media (max-width:560px){.tl li{grid-template-columns:84px 18px 1fr}}
+
+/* charts */
+.chart{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:16px;margin:14px 0}
+.chart h4{margin:0 0 2px;font-size:17px}
+.chart .sub{margin:0 0 12px;color:var(--muted);font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink-2);margin:0 0 12px}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-grid;place-items:center;font-size:10px;font-weight:800;color:#fff;flex:none;font-style:normal}
+.sw.good{background:var(--good)} .sw.warn{background:var(--warn);color:#2a1d00} .sw.crit{background:var(--crit)}
+.bars{display:grid;gap:4px}
+.brow{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:center;font-size:14px}
+.brow.wide{grid-template-columns:150px 1fr}
+@media (max-width:560px){.brow.wide{grid-template-columns:104px 1fr}}
+.brow .lab{font:600 13px ui-monospace,Menlo,monospace;text-align:right;color:var(--ink-2);line-height:1.2}
+.brow.wide .lab{font:600 13px system-ui,sans-serif}
+.brow .track{position:relative;height:22px}
+.brow .fill{height:100%;border-radius:0 4px 4px 0;min-width:2px}
+.fill.good{background:var(--good)} .fill.warn{background:var(--warn)} .fill.crit{background:var(--crit)} .fill.series{background:var(--series)}
+.brow .val{position:absolute;top:0;line-height:22px;font-size:13px;color:var(--ink-2);white-space:nowrap;padding-left:6px;font-variant-numeric:tabular-nums}
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:7px 9px;border-radius:8px;max-width:240px;opacity:0;transition:opacity .1s}
+.tip.on{opacity:1}
+
+/* patch wave board: board + levers in one viewport */
+.board{background:var(--surface);border:1px solid var(--ring);border-radius:18px;padding:14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;max-height:calc(100svh - 64px)}
+@media (max-width:760px){.board{grid-template-columns:1fr;gap:10px}}
+.waffle{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;width:100%;max-width:min(400px,46svh);margin:0 auto}
+@media (max-width:760px){.waffle{max-width:min(400px,33svh)} .board .legend{font-size:12px;gap:4px 10px;margin-bottom:8px} .levers{gap:6px} .score-row b{font-size:22px}}
+.waffle i{aspect-ratio:1;border-radius:4px;display:grid;place-items:center;font:800 10px system-ui;color:rgba(255,255,255,.9);font-style:normal;transition:background .35s}
+.waffle i.good{background:var(--good)} .waffle i.warn{background:var(--warn);color:rgba(42,29,0,.75)} .waffle i.crit{background:var(--crit)}
+.levers{display:grid;gap:10px;align-content:start}
+.lever label{display:flex;justify-content:space-between;gap:8px;font-weight:600;font-size:14px}
+.lever label span{font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.lever input{width:100%;accent-color:var(--accent)}
+.score-row{display:flex;gap:10px;flex-wrap:wrap}
+.score-row div{flex:1;min-width:0;border-radius:12px;padding:8px 10px;background:var(--surface-2)}
+.score-row b{display:block;font-size:26px;line-height:1.1}
+.score-row small{font-size:12px;color:var(--ink-2)}
+.score-row .g b{color:var(--good-ink)} .score-row .w b{color:var(--warn-ink)} .score-row .c b{color:var(--crit-ink)}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+
+.gantt .row{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:center;height:28px}
+.gantt .row .lab{font:600 13px ui-monospace,Menlo,monospace;text-align:right;color:var(--ink-2)}
+.gantt .lane{position:relative;height:18px;z-index:1}
+.gantt .span{position:absolute;top:0;height:100%;border-radius:4px;background:var(--axis)}
+.gantt .span.live{background:var(--accent)}
+.gantt .span.soon{background:var(--warn)}
+.gantt .t{position:absolute;top:0;line-height:18px;font-size:12px;padding-left:6px;white-space:nowrap;color:var(--ink-2)}
+.gantt .t.in{padding:0 6px 0 0;color:#fff;font-weight:700}
+:root[data-theme="dark"] .gantt .t.in{color:#120f26}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gantt .t.in{color:#120f26}}
+.gantt .plot{position:relative}
+.gantt .today{position:absolute;top:0;bottom:0;width:2px;background:var(--hot)}
+.gantt .today span{position:absolute;top:-18px;left:4px;font:700 11px ui-monospace,Menlo,monospace;color:var(--hot);white-space:nowrap}
+.gantt .ticks{position:relative;height:18px;border-top:1px solid var(--axis);margin-left:52px}
+.gantt .ticks span{position:absolute;top:2px;transform:translateX(-50%);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.apps{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.apps span{border-radius:8px;padding:5px 10px;background:var(--hot-soft);color:var(--crit-ink);font-weight:600;font-size:14px}
+.sapi{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media (max-width:760px){.sapi{grid-template-columns:repeat(2,1fr)}}
+.sapi div{border-radius:12px;padding:10px;background:var(--surface);border:1px solid var(--ring);font-size:14px}
+.sapi div.top{border:2px solid var(--crit)}
+.sapi b{display:block;font-family:ui-monospace,Menlo,monospace}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+@media (max-width:760px){.people{grid-template-columns:1fr}}
+.people b{display:block;font-size:17px;margin-bottom:4px}
+.people .em{font-size:30px;line-height:1}
+
+/* fix planner */
+.planner{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.planner > *{min-width:0}
+.pick{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pick button{border:1px solid var(--axis);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:600;font-size:14px}
+.pick button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .pick button[aria-pressed="true"]{color:#120f26}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pick button[aria-pressed="true"]{color:#120f26}}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s;grid-template-columns:minmax(0,1fr)}
+.steps li{min-width:0;background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:12px 14px 12px 52px;position:relative;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:12px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font-weight:800;font-size:14px}
+.steps li.done{opacity:.62}
+.steps li.done::before{content:"✓";background:var(--good);color:#fff}
+.steps li > b{display:block;padding-right:70px}
+.steps li p{margin:4px 0 0;color:var(--ink-2);font-size:15px}
+.steps .tick{position:absolute;right:12px;top:11px;font-size:13px;display:flex;gap:6px;align-items:center;color:var(--muted)}
+.steps .tick input{width:18px;height:18px;accent-color:var(--good)}
+.cmd{position:relative;margin:8px 0 0;background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:10px 64px 10px 12px;font:13.5px/1.5 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre}
+.cmd .c{color:var(--code-dim)}
+.copy{position:absolute;right:6px;top:6px;border:0;border-radius:7px;padding:4px 8px;font-size:12px;font-weight:700;background:#2e2a52;color:#ebe8ff}
+.stop{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (max-width:760px){.stop{grid-template-columns:1fr}}
+.stop h4{margin:0 0 4px;font-size:17px}
+.stop .cost{font-size:14px;color:var(--crit-ink);margin-top:6px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--ring);border-radius:14px}
+
+.sources{columns:2;column-gap:28px;font-size:15px;padding-left:18px}
+@media (max-width:760px){.sources{columns:1}}
+.sources li{break-inside:avoid;margin-bottom:8px}
+.share{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.share a,.share button{display:inline-flex;align-items:center;gap:6px;border-radius:10px;padding:9px 14px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid var(--axis);background:var(--surface);color:var(--ink)}
+.share .line{background:#06c755;border-color:#06c755;color:#fff}
+footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;transition:all .2s;z-index:60;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%)}
+@media print{nav.top,.band,.share{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker"><b>PHP2Shell</b> · CVE-2026-109618 + CVE-2026-109619 · fixed 21 Oct 2026</div>
+    <div class="hero-grid">
+      <div>
+        <h1>The PHP patch is out. <em>Update today.</em></h1>
+        <p class="lede">PHP runs about 7 in 10 websites. Two bugs inside PHP itself let a stranger take over a web server without logging in. PHP shipped the fix at 14:00 UTC on 21 October; attacks were seen about six hours earlier.</p>
+        <div class="checker">
+          <label for="ver">Is your PHP fixed? Paste <code>php -v</code> or type a version.</label>
+          <div class="row">
+            <input id="ver" autocomplete="off" spellcheck="false" placeholder="PHP 8.3.35 (cli) …" aria-describedby="verdict">
+            <button class="btn" id="verGo">Check</button>
+          </div>
+          <div class="chips" aria-label="Examples">
+            <button class="chip" data-v="PHP 8.3.36 (fpm-fcgi)">8.3.36</button>
+            <button class="chip" data-v="PHP 8.2.34 (fpm-fcgi)">8.2.34</button>
+            <button class="chip" data-v="PHP 8.3.6 (cli) Ubuntu">8.3.6 Ubuntu</button>
+            <button class="chip" data-v="PHP 7.4.33 (fpm-fcgi)">7.4.33</button>
+            <button class="chip" data-v="PHP 5.6.40">5.6.40</button>
+          </div>
+          <div class="verdict" id="verdict" aria-live="polite"><p>Fixed releases: <b>8.5.12</b>, <b>8.4.27</b>, <b>8.3.36</b>, <b>8.2.35</b> or later.</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="wave" id="wave" role="img" aria-label="A grid of servers turning from red to green as they are patched."></div>
+        <div class="wave-cap"><span>Each square: a server</span><span><b id="waveN">0</b> patched</span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>9.2<small> /10</small></b><span>severity of each bug (CVSS v4)</span></div>
+      <div class="stat"><b>14 yrs</b><span>age of the oldest affected code, PHP 5.4.0 (2012)</span></div>
+      <div class="stat"><b>6 h 17 m</b><span>attacks seen before the fix shipped</span></div>
+      <div class="stat"><b>69%</b><span>of websites with a known server language run PHP</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a href="#meaning">Meaning</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#who">Who</a>
+    <a href="#fix">Fix</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<main>
+<section id="meaning">
+  <div class="wrap">
+    <div class="eyebrow">Meaning</div>
+    <h2>A memory mix-up inside PHP hands a stranger the server</h2>
+    <p>PHP reuses the same worker for request after request. Both bugs are about clean-up: when a request fails in an unusual way, PHP can leave behind scraps of memory it still trusts. A later request can pick them up. An attacker who arranges this can run their own commands on the server with the same rights as the website.</p>
+    <p>No password or account is needed, and the website's own code does not have to be faulty. A fully updated WordPress on an old PHP is still exposed.</p>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="card bug-card">
+        <span class="tag">CVE-2026-109618</span>
+        <h4>Out-of-memory clean-up</h4>
+        <div class="score"><b>9.2</b><span class="muted">of 10, PHP's rating</span></div>
+        <div class="meter" aria-hidden="true"><i></i></div>
+        <p class="small">PHP's title: <i>RCE via OOM corruption</i>. When a request runs out of memory, PHP can treat half-built data as valid while cleaning up.</p>
+      </div>
+      <div class="card bug-card">
+        <span class="tag">CVE-2026-109619</span>
+        <h4>Leftovers between requests</h4>
+        <div class="score"><b>9.2</b><span class="muted">of 10, PHP's rating</span></div>
+        <div class="meter" aria-hidden="true"><i></i></div>
+        <p class="small">PHP's title: <i>RCE via stale global state</i>. Data from one request can outlive its memory and be used by the next request on the same worker.</p>
+      </div>
+    </div>
+    <p class="small muted">RCE: remote code execution, running commands on someone else's computer. watchTowr rated the bugs 10.0. Sansec reports one path can also leak memory from other visitors' requests, such as passwords and session tokens.</p>
+
+    <h3>The hole is in PHP, under the app</h3>
+    <div class="path" role="list">
+      <div class="hop" role="listitem"><span class="lab">1</span><b>The internet</b>Anyone can send a request.</div>
+      <div class="hop" role="listitem"><span class="lab">2</span><b>Web server</b>nginx, Apache, LiteSpeed pass it on.</div>
+      <div class="hop bug" role="listitem"><span class="lab">3 · bug here</span><b>PHP engine</b>Reads the request first. The patch fixes this layer.</div>
+      <div class="hop" role="listitem"><span class="lab">4</span><b>Your app</b>WordPress, Magento, Laravel. Runs after.</div>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true">
+  <div class="pic"><svg id="mem1" preserveAspectRatio="xMidYMid slice"></svg></div>
+  <div class="say">Spotted in 2004, 2020 and 2024. Proved in 2026, with AI help.<small>Calif · Wiz Research · OpenAI</small></div>
+</div>
+
+<section id="timeline">
+  <div class="wrap">
+    <div class="eyebrow">Timeline</div>
+    <h2>Fourteen years hidden, ten weeks to fix, six hours of attacks before the patch</h2>
+    <p>The weakness was noticed more than once and left alone because nobody showed it could be used. In 2026 researchers working with AI models showed it could. Wiz credits frontier AI models with lowering the cost of turning the bug into an attack.</p>
+    <div class="tabs" role="tablist" aria-label="Timeline scale">
+      <button role="tab" aria-selected="false" data-view="years">22 years</button>
+      <button role="tab" aria-selected="false" data-view="weeks">10 weeks</button>
+      <button role="tab" aria-selected="true" data-view="hours">Last 36 hours</button>
+    </div>
+    <ol class="tl" id="tl"></ol>
+    <p class="small muted">Times in UTC. 03:00 UTC on 21 October is the evening of 20 October in the US.</p>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap">
+    <div class="eyebrow">Who</div>
+    <h2>Half of PHP websites got a ready-made fix. The other half need a hand patch or an upgrade</h2>
+    <p>PHP shipped new releases only for the branches it still supports, 8.2 to 8.5. For 7.4, 8.0 and 8.1 it published a bare source patch: useful to people who build PHP themselves or have a vendor who backports it, of little use to most site owners. Older branches get nothing.</p>
+
+    <div class="chart">
+      <h4>Out of every 100 PHP websites, how many can be fixed, and how?</h4>
+      <p class="sub">Each square is 1% of PHP websites, by the version W3Techs detected on 21 Oct 2026. Move the sliders to see what it takes to close the gap.</p>
+      <div class="board" id="board">
+        <div>
+          <div class="legend">
+            <span><i class="sw good">✓</i>Patched</span>
+            <span><i class="sw warn">~</i>Fix exists, not applied</span>
+            <span><i class="sw crit">✕</i>No fix for this version</span>
+          </div>
+          <div class="waffle" id="waffle" role="img" aria-live="polite"></div>
+        </div>
+        <div class="levers">
+          <div class="lever">
+            <label for="s1">8.2–8.5 updated <span id="s1v">0%</span></label>
+            <input type="range" id="s1" min="0" max="100" step="5" value="0">
+          </div>
+          <div class="lever">
+            <label for="s2">7.4–8.1 backported or upgraded <span id="s2v">0%</span></label>
+            <input type="range" id="s2" min="0" max="100" step="5" value="0">
+          </div>
+          <div class="lever">
+            <label for="s3">5.x–7.3 moved or retired <span id="s3v">0%</span></label>
+            <input type="range" id="s3" min="0" max="100" step="5" value="0">
+          </div>
+          <div class="score-row" aria-live="polite">
+            <div class="g"><b id="nG">0</b><small>patched</small></div>
+            <div class="w"><b id="nW">0</b><small>fix waiting</small></div>
+            <div class="c"><b id="nC">0</b><small>no fix</small></div>
+          </div>
+          <div class="presets">
+            <button class="chip" data-p="0,0,0">Today</button>
+            <button class="chip" data-p="100,0,0">Supported sites update</button>
+            <button class="chip" data-p="100,100,100">All fixed</button>
+          </div>
+          <p class="small muted" style="margin:0">51 have a release, 34 a source patch only, 15 nothing at all.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart">
+      <h4>PHP 8.3 and 7.4 are the two biggest groups, on opposite sides of the line</h4>
+      <p class="sub">Share of PHP websites by branch, 21 Oct 2026 (W3Techs).</p>
+      <div class="legend">
+        <span><i class="sw good">✓</i>Fixed release</span>
+        <span><i class="sw warn">~</i>Source patch only</span>
+        <span><i class="sw crit">✕</i>No patch from PHP</span>
+      </div>
+      <div class="bars" id="branchBars"></div>
+      <p class="small muted" style="margin:10px 0 0">PHP 5.x counts every 5 release; the affected code starts at 5.4.0, so sites on 5.0 to 5.3 may predate it, with many other open holes. PHP 4 (0.1%) is left out.</p>
+    </div>
+
+    <h3>Every way of running PHP on the web is exposed</h3>
+    <p>PHP's advisory names five setups and rates <code>mod_php</code> highest, where an attack works before any application code runs.</p>
+    <div class="sapi">
+      <div class="top"><b>mod_php</b>Apache module. Highest risk.</div>
+      <div><b>PHP-FPM</b>The usual nginx setup.</div>
+      <div><b>php-cgi</b>Older CGI setups.</div>
+      <div><b>FrankenPHP</b>Ships its own PHP.</div>
+      <div><b>LiteSpeed</b>lsphp, common on shared hosts.</div>
+    </div>
+
+    <h3>Popular apps confirmed open without a login</h3>
+    <p class="small muted">Calif reports these versions as exploitable before login on an unpatched PHP; Wiz reports the same for WordPress and Drupal.</p>
+    <div class="apps">
+      <span>WordPress</span><span>WooCommerce</span><span>Magento</span><span>Drupal</span><span>Joomla</span><span>MediaWiki</span><span>Roundcube</span><span>phpMyAdmin</span><span>Nextcloud</span><span>Laravel</span><span>Symfony</span><span>WHMCS</span>
+    </div>
+    <p class="small">Wikimedia took its Phabricator server offline as a precaution before the patch.</p>
+
+    <div class="people">
+      <div class="card"><div class="em" aria-hidden="true">🛒</div><b>Site owners and shops</b>A taken-over server can be wiped, held for ransom, or used to steal card details at checkout.</div>
+      <div class="card"><div class="em" aria-hidden="true">🔑</div><b>Visitors and members</b>Their passwords and sessions pass through the same server memory.</div>
+      <div class="card"><div class="em" aria-hidden="true">🏚️</div><b>Forgotten servers</b>Old sites and PHP inside appliances. Hal Pomeranz expects a long tail that never gets patched.</div>
+    </div>
+
+    <div class="chart">
+      <h4>Counts of exposed PHP servers run from 1.3 to 5.1 million</h4>
+      <p class="sub">Each count measures something different. One shared-hosting server can carry many websites.</p>
+      <div class="bars" id="hostBars"></div>
+    </div>
+
+    <div class="chart">
+      <h4>The US has the most servers on branches without a new release</h4>
+      <p class="sub">Servers showing PHP 8.1 or older, Shodan scan via Mallory.ai, one source. China is listed without a figure.</p>
+      <div class="bars" id="countryBars"></div>
+    </div>
+    <p class="small muted">Not exposed: websites with no PHP on the server, such as static pages.</p>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true">
+  <div class="pic"><svg id="mem2" preserveAspectRatio="xMidYMid slice"></svg></div>
+  <div class="say">“The only mitigation is patching / upgrading PHP.”<small>Gina Peter Banyard, PHP core developer</small></div>
+</div>
+
+<section id="fix">
+  <div class="wrap">
+    <div class="eyebrow">Fix</div>
+    <h2>Update PHP, restart every PHP process, then check</h2>
+    <p>A running PHP process keeps the old code in memory until it restarts. An update without a restart leaves the hole open.</p>
+
+    <div class="planner card" id="planner">
+      <div>
+        <b>Where does your PHP run?</b>
+        <div class="pick" id="pickHost">
+          <button data-h="hosted" aria-pressed="true">Hosting company / WordPress host</button>
+          <button data-h="deb" aria-pressed="false">Debian / Ubuntu</button>
+          <button data-h="rhel" aria-pressed="false">RHEL / Alma / Rocky</button>
+          <button data-h="docker" aria-pressed="false">Docker</button>
+          <button data-h="win" aria-pressed="false">Windows</button>
+          <button data-h="other" aria-pressed="false">LiteSpeed / FrankenPHP / Laravel</button>
+        </div>
+      </div>
+      <div>
+        <b>Which PHP branch?</b>
+        <div class="pick" id="pickVer">
+          <button data-b="unknown" aria-pressed="false">Don't know</button>
+          <button data-b="8.5" aria-pressed="false">8.5</button>
+          <button data-b="8.4" aria-pressed="false">8.4</button>
+          <button data-b="8.3" aria-pressed="true">8.3</button>
+          <button data-b="8.2" aria-pressed="false">8.2</button>
+          <button data-b="8.1" aria-pressed="false">8.1</button>
+          <button data-b="8.0" aria-pressed="false">8.0</button>
+          <button data-b="7.4" aria-pressed="false">7.4</button>
+          <button data-b="old" aria-pressed="false">7.3 or older</button>
+        </div>
+      </div>
+      <div class="verdict" id="planVerdict" aria-live="polite"></div>
+      <ol class="steps" id="steps"></ol>
+    </div>
+
+    <h3>Fixed versions</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Branch</th><th>Fixed in</th><th>Security support ends</th></tr></thead>
+        <tbody>
+          <tr><td>8.5</td><td><b>8.5.12</b></td><td>31 Dec 2029</td></tr>
+          <tr><td>8.4</td><td><b>8.4.27</b></td><td>31 Dec 2028</td></tr>
+          <tr><td>8.3</td><td><b>8.3.36</b></td><td>31 Dec 2027</td></tr>
+          <tr><td>8.2</td><td><b>8.2.35</b></td><td>31 Dec 2026</td></tr>
+          <tr><td>7.4 · 8.0 · 8.1</td><td>source patch only; distribution or LTS vendor backports</td><td>ended</td></tr>
+          <tr><td>7.3 and older</td><td>none</td><td>ended</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">Distribution builds keep their own numbers: Ubuntu 22.04 <code>8.1.2-1ubuntu2.28</code>, 24.04 <code>8.3.6-0ubuntu0.24.04.13</code>, 26.04 <code>8.5.4-0ubuntu1.5</code>; Debian 13 <code>8.4.27-1~deb13u1</code>. Debian 12 was pending at the time of writing.</p>
+
+    <div class="chart">
+      <h4>PHP 8.2 is fixed today and out of support in 71 days</h4>
+      <p class="sub">Security support per branch. The red line is 21 October 2026. A move to 8.2 buys ten weeks; 8.3 or newer buys a year or more.</p>
+      <div class="gantt" id="gantt"></div>
+    </div>
+
+    <h3>If you cannot patch within the hour</h3>
+    <p>These buy time. None makes a server safe.</p>
+    <div class="stop">
+      <div class="card">
+        <h4>☁️ Cloudflare in front</h4>
+        Cloudflare added firewall rules for the known attacks on every plan, the free one included. Its CTO calls them a stopgap.
+        <div class="cost">Cost: covers only traffic that goes through Cloudflare.</div>
+      </div>
+      <div class="card">
+        <h4>⚙️ php.net's interim settings</h4>
+        The advisory lists settings that close some paths, applied in <code>php.ini</code> or the FPM pool with every worker restarted. <a href="https://www.php.net/">Read them on php.net</a>.
+        <div class="cost">Cost: partial, and some trade memory safety for availability.</div>
+      </div>
+      <div class="card">
+        <h4>🚫 Turn off uploads</h4>
+        Sansec suggests refusing file-upload requests at the web server for a while.
+        <div class="cost">Cost: breaks the media library, product photos, and some forms and checkouts.</div>
+      </div>
+      <div class="card">
+        <h4>🔌 Take it offline</h4>
+        The UK NCSC advises taking offline any system that cannot be fixed now. Serve a static maintenance page with PHP stopped; WordPress and Magento maintenance modes still run PHP.
+        <div class="cost">Cost: the site is down until patched.</div>
+      </div>
+    </div>
+
+    <h3>After patching, look for a break-in</h3>
+    <p>Attacks began before the fix, so a patched server can already hold an intruder.</p>
+    <ol class="steps" id="after"></ol>
+  </div>
+</section>
+
+<section id="sources">
+  <div class="wrap">
+    <div class="eyebrow">Sources</div>
+    <h2>Sources</h2>
+    <p class="small muted">Read 21 Oct 2026, 15:15 UTC, an hour after the release. Early reports disagree on some details; this page follows php.net where they differ.</p>
+    <ol class="sources">
+      <li><a href="https://www.php.net/">php.net</a>, security announcement, 21 Oct 2026: fixed versions, setups at risk, interim settings.</li>
+      <li><a href="https://sansec.io/research/php2shell">Sansec</a>, PHP2Shell: confirmed apps, timeline, stopgaps, history since 2004.</li>
+      <li><a href="https://www.tenable.com/blog/php2shell-cve-2026-109618-cve-2026-109619-frequently-asked-questions-about-critical-php-remote">Tenable</a>, FAQ: ratings, leak, Cloudflare, host estimates by Silas Cutler and Henk Poley.</li>
+      <li><a href="https://en.wikipedia.org/wiki/PHP2Shell">Wikipedia</a>, PHP2Shell: discovery under OpenAI's Patch the Planet, advisory titles, 13:34 UTC advisories, Wikimedia.</li>
+      <li><a href="https://www.helpnetsecurity.com/2026/10/21/php2shell-php-vulnerabilities-patched-cve-2026-109618-cve-2026-109619/">Help Net Security</a>: Kevin Beaumont, Hal Pomeranz, NCSC, Remi repository.</li>
+      <li><a href="https://www.bleepingcomputer.com/news/security/php-ships-emergency-patches-for-critical-php2shell-flaws/">BleepingComputer</a>: VirusTotal host count, Gina Peter Banyard.</li>
+      <li><a href="https://phoenix.security/php-core-rce-cve-2026-109618-109619-critical-remote-code-execution/">Phoenix Security</a>: Mallory.ai Shodan counts by version and country, signs of a break-in.</li>
+      <li><a href="https://ma.ttias.be/php-cve-2026-109618-patch/">Mattias Geniar</a>: commands per platform, restarts, checking for old PHP in memory.</li>
+      <li><a href="https://ubuntu.com/blog/php2shell-vulnerability-fixes-available">Ubuntu</a>: fixed package versions.</li>
+      <li><a href="https://wordify.com/blog/php-security-vulnerability-wordpress-october-2026/">Wordify</a>, live updates: 08:44 and 12:00 UTC reports, PHP support dates.</li>
+      <li><a href="https://w3techs.com/technologies/details/pl-php">W3Techs</a>: PHP share of websites and version split (<a href="https://w3techs.com/technologies/details/pl-php/8">8.x</a>, <a href="https://w3techs.com/technologies/details/pl-php/7">7.x</a>), 21 Oct 2026.</li>
+      <li><a href="https://www.forbes.com/sites/daveywinder/2026/10/21/critical-php-security-warning-issued-apply-emergency-patch-today/">Forbes</a> and <a href="https://laravel-news.com/php-critical-security-release">Laravel News</a>: release notice.</li>
+    </ol>
+    <div class="share" aria-label="Share">
+      <a class="line" id="shLine" href="#" target="_blank" rel="noopener">LINE</a>
+      <a id="shBsky" href="#" target="_blank" rel="noopener">Bluesky</a>
+      <a id="shFb" href="#" target="_blank" rel="noopener">Facebook</a>
+      <a id="shX" href="#" target="_blank" rel="noopener">X</a>
+      <button id="shCopy">Copy link</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">The PHP Patch · <a href="https://github.com/NaNoBotCo/php-patch">NaNoBotCo/php-patch</a> · 21 October 2026</div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function toast(t){var el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove('on')},1600)}
+function copy(text){
+  function fb(){var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');toast('Copied')}catch(e){}t.remove()}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){toast('Copied')},fb)}else fb();
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.copy'); if(!b)return;
+  var box=b.parentNode.cloneNode(true); box.querySelector('.copy').remove(); $$('.c',box).forEach(function(c){c.remove()});
+  copy(box.textContent.replace(/\n{2,}/g,'\n').trim());
+});
+
+/* tooltip */
+var tip=$('#tip');
+function showTip(e,html){tip.innerHTML=html;tip.classList.add('on');var x=(e.clientX||0)+12,y=(e.clientY||0)+12;var w=tip.offsetWidth,h=tip.offsetHeight;if(x+w>innerWidth-8)x=innerWidth-w-8;if(y+h>innerHeight-8)y=(e.clientY||0)-h-12;tip.style.left=x+'px';tip.style.top=y+'px'}
+function hideTip(){tip.classList.remove('on')}
+function hover(el,html){el.addEventListener('pointermove',function(e){showTip(e,html)});el.addEventListener('pointerleave',hideTip);el.addEventListener('pointerdown',function(e){showTip(e,html)})}
+
+/* hero wave */
+(function(){
+  var W=$('#wave'),N=96,cells=[],n=0;
+  for(var i=0;i<N;i++){var c=document.createElement('i');W.appendChild(c);cells.push(c)}
+  var order=cells.map(function(_,i){var r=Math.floor(i/12),c=i%12;return {i:i,d:r+c+Math.random()*3}}).sort(function(a,b){return a.d-b.d});
+  var stuck={};order.slice(-14).forEach(function(o){stuck[o.i]=1});
+  function set(k){n=0;order.forEach(function(o,j){var on=j<k&&!stuck[o.i];cells[o.i].className=on?'on':'';if(on)n++});$('#waveN').textContent=n}
+  if(still){set(N);return}
+  var k=0;set(0);
+  setInterval(function(){k+=3;if(k>N+30)k=0;set(Math.min(k,N))},120);
+})();
+
+/* version checker */
+var FIX={'8.5':12,'8.4':27,'8.3':36,'8.2':35};
+var ENDED={'8.1':'31 Dec 2025','8.0':'26 Nov 2023','7.4':'28 Nov 2022'};
+function judge(raw){
+  var s=String(raw||'').trim(); if(!s)return null;
+  var m=s.match(/(\d+)\.(\d+)(?:\.(\d+))?/);
+  if(!m)return {cls:'warn',icon:'?',title:'No version found',body:'Paste the first line of <code>php -v</code>, for example <code>PHP 8.3.35 (cli)</code>.'};
+  var maj=+m[1],min=+m[2],pat=m[3]===undefined?null:+m[3],br=maj+'.'+min;
+  var distro=/ubuntu|debian|deb\d|\+deb|\.el\d|remi|sury/i.test(s);
+  var cliNote=/\(cli\)/i.test(s)?'<br><span class="small">This came from the command line. The web server can run a different PHP; check that too (hosting panel, or WordPress Tools → Site Health → Info → Server).</span>':'';
+  if(FIX[br]!==undefined){
+    if(pat===null)return {cls:'warn',icon:'?',title:'PHP '+br+': fixed in '+br+'.'+FIX[br],body:'Add the last number to check, for example '+br+'.'+FIX[br]+'.'};
+    if(pat>=FIX[br])return {cls:'good',icon:'✓',title:'PHP '+br+'.'+pat+' has the fix',body:'Restart PHP-FPM or Apache if you have not since updating.'+(br==='8.2'?' PHP 8.2 security support ends 31 Dec 2026; plan 8.3 or newer.':'')+cliNote};
+    if(distro)return {cls:'warn',icon:'~',title:'PHP '+br+'.'+pat+', distribution build',body:'Ubuntu and Debian patch without changing this number. Check the package version instead: <code>dpkg -l \'php*\' | grep '+br+'</code>. Ubuntu 24.04 is fixed at <code>8.3.6-0ubuntu0.24.04.13</code>.'+cliNote};
+    return {cls:'crit',icon:'✕',title:'PHP '+br+'.'+pat+' is open',body:'Update to <b>'+br+'.'+FIX[br]+'</b> or later, then restart PHP. <a href="#fix">Fix steps</a>.'+cliNote};
+  }
+  if(ENDED[br]){
+    if(distro)return {cls:'warn',icon:'~',title:'PHP '+br+', distribution build',body:'PHP ended support on '+ENDED[br]+'. Your distribution may ship a backport (Ubuntu 22.04: <code>8.1.2-1ubuntu2.28</code>); check the package version. Then plan a move to 8.3 or newer.'+cliNote};
+    return {cls:'crit',icon:'✕',title:'PHP '+br+': no new release',body:'Support ended '+ENDED[br]+'. PHP published a source patch only. Move to PHP 8.3 or newer, or get a backport from your distribution or LTS vendor. <a href="#fix">Fix steps</a>.'+cliNote};
+  }
+  if(maj===8&&min>5)return {cls:'warn',icon:'?',title:'PHP '+br+' is a pre-release',body:'8.6 is a release candidate, not for production. Use 8.5.12.'};
+  if(maj>8||maj===6||maj<4)return {cls:'warn',icon:'?',title:'PHP '+br+' is not a released branch',body:'Check the number and try again.'};
+  if(maj<5||(maj===5&&min<4))return {cls:'crit',icon:'✕',title:'PHP '+br+' has years of open holes',body:'The affected code starts at 5.4.0, but this version has had no fixes for a decade. Move the site to PHP 8.3 or newer, or off the public internet.'};
+  return {cls:'crit',icon:'✕',title:'PHP '+br+': no fix exists',body:'PHP gives no patch for this branch. Move the site to PHP 8.3 or newer, or take it off the public internet until then (UK NCSC advice). <a href="#fix">Fix steps</a>.'};
+}
+function showVerdict(el,v){if(!v)return;el.className='verdict '+v.cls;el.innerHTML='<h3><span class="ico '+v.cls+'" aria-hidden="true">'+v.icon+'</span>'+esc(v.title)+'</h3><p>'+v.body+'</p>'}
+function runCheck(){showVerdict($('#verdict'),judge($('#ver').value))}
+$('#verGo').addEventListener('click',runCheck);
+$('#ver').addEventListener('keydown',function(e){if(e.key==='Enter')runCheck()});
+$('#ver').addEventListener('input',function(){if(/\d+\.\d+\.\d+/.test(this.value))runCheck()});
+$$('.checker .chip').forEach(function(c){c.addEventListener('click',function(){$('#ver').value=c.dataset.v;$$('.checker .chip').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')});runCheck()})});
+
+/* data: share of PHP websites by branch, W3Techs 21 Oct 2026 */
+var BR=[
+ {v:'8.5',s:2.87,p:'good',n:3},{v:'8.4',s:7.89,p:'good',n:8},{v:'8.3',s:22.69,p:'good',n:22},{v:'8.2',s:18.06,p:'good',n:18},
+ {v:'8.1',s:9.91,p:'warn',n:10},{v:'8.0',s:3.78,p:'warn',n:4},{v:'7.4',s:19.82,p:'warn',n:20},
+ {v:'7.3',s:2.84,p:'crit',n:3},{v:'7.2',s:2.27,p:'crit',n:2},{v:'7.1',s:1.00,p:'crit',n:1},{v:'7.0',s:1.08,p:'crit',n:1},{v:'5.x',s:7.70,p:'crit',n:8}
+];
+var PATH={good:'fixed release',warn:'source patch only',crit:'no patch from PHP'};
+var GLYPH={good:'✓',warn:'~',crit:'✕'};
+
+/* branch bars */
+(function(){
+  var max=25,B=$('#branchBars');
+  BR.forEach(function(b){
+    var r=document.createElement('div');r.className='brow';
+    r.innerHTML='<span class="lab">'+b.v+'</span><div class="track"><div class="fill '+b.p+'" style="width:'+(b.s/max*82)+'%"></div><span class="val" style="left:'+(b.s/max*82)+'%">'+b.s.toFixed(1)+'% '+GLYPH[b.p]+'</span></div>';
+    hover(r,'<b>PHP '+b.v+'</b><br>'+b.s.toFixed(1)+'% of PHP websites<br>'+PATH[b.p]);
+    B.appendChild(r);
+  });
+})();
+
+/* patch wave board */
+(function(){
+  var W=$('#waffle'),cells=[];
+  BR.forEach(function(b){for(var i=0;i<b.n;i++)cells.push({b:b,k:i})});
+  cells.forEach(function(c){var el=document.createElement('i');c.el=el;W.appendChild(el);hover(el,'')});
+  function paint(){
+    var a=+$('#s1').value,b=+$('#s2').value,c=+$('#s3').value;
+    $('#s1v').textContent=a+'%';$('#s2v').textContent=b+'%';$('#s3v').textContent=c+'%';
+    var groups={good:[],warn:[],crit:[]};cells.forEach(function(x){groups[x.b.p].push(x)});
+    var share={good:a,warn:b,crit:c},G=0,Wn=0,C=0;
+    Object.keys(groups).forEach(function(g){
+      var list=groups[g],k=Math.round(list.length*share[g]/100);
+      list.forEach(function(x,i){
+        var fixed=i<k,st=fixed?'good':(g==='crit'?'crit':'warn');
+        x.el.className=st;x.el.textContent=GLYPH[st];
+        var how=fixed?(g==='good'?'updated to the fixed release':g==='warn'?'backported or upgraded':'moved to PHP 8 or retired'):(g==='crit'?'no fix for this version':'fix exists, not applied');
+        x.tipHtml='<b>PHP '+x.b.v+'</b><br>'+how;
+        if(st==='good')G++;else if(st==='warn')Wn++;else C++;
+      });
+    });
+    $('#nG').textContent=G;$('#nW').textContent=Wn;$('#nC').textContent=C;
+    W.setAttribute('aria-label',G+' of 100 PHP websites patched, '+Wn+' with a fix waiting, '+C+' with no fix for their version.');
+  }
+  cells.forEach(function(x){x.el.addEventListener('pointermove',function(e){showTip(e,x.tipHtml)});x.el.addEventListener('pointerdown',function(e){showTip(e,x.tipHtml)});x.el.addEventListener('pointerleave',hideTip)});
+  ['#s1','#s2','#s3'].forEach(function(id){$(id).addEventListener('input',paint)});
+  $$('.presets .chip').forEach(function(p){p.addEventListener('click',function(){var v=p.dataset.p.split(',');$('#s1').value=v[0];$('#s2').value=v[1];$('#s3').value=v[2];paint()})});
+  paint();
+})();
+
+/* host estimates */
+(function(){
+  var H=[
+    {l:'Silas Cutler',sub:'rough estimate, possibly vulnerable',v:1.3},
+    {l:'Henk Poley',sub:'Shodan, running PHP',v:1.9},
+    {l:'Mallory.ai',sub:'Shodan, showing a PHP banner',v:2.23},
+    {l:'VirusTotal',sub:'PHP hosts seen online',v:5.1}
+  ];
+  var B=$('#hostBars');
+  H.forEach(function(h){var r=document.createElement('div');r.className='brow wide';
+    r.innerHTML='<span class="lab">'+h.l+'</span><div class="track"><div class="fill series" style="width:'+(h.v/5.1*78)+'%"></div><span class="val" style="left:'+(h.v/5.1*78)+'%">'+h.v+' M</span></div>';
+    hover(r,'<b>'+h.l+'</b><br>'+h.v+' million servers<br>'+h.sub);B.appendChild(r)});
+  var C=[{l:'United States',v:228770},{l:'Japan',v:55460},{l:'Germany',v:45835}],K=$('#countryBars');
+  C.forEach(function(h){var r=document.createElement('div');r.className='brow wide';var w=h.v/228770*72;
+    r.innerHTML='<span class="lab">'+h.l+'</span><div class="track"><div class="fill series" style="width:'+w+'%"></div><span class="val" style="left:'+w+'%">'+h.v.toLocaleString('en-US')+'</span></div>';
+    hover(r,'<b>'+h.l+'</b><br>'+h.v.toLocaleString('en-US')+' servers on PHP 8.1 or older');K.appendChild(r)});
+})();
+
+/* support calendar */
+(function(){
+  var G=$('#gantt'),t0=Date.UTC(2019,0,1),t1=Date.UTC(2030,6,1),today=Date.UTC(2026,9,21);
+  function x(d){return (d-t0)/(t1-t0)*100}
+  var R=[
+    {v:'7.4',a:[2019,10,28],b:[2022,10,28]},{v:'8.0',a:[2020,10,26],b:[2023,10,26]},{v:'8.1',a:[2021,10,25],b:[2025,11,31]},
+    {v:'8.2',a:[2022,11,8],b:[2026,11,31]},{v:'8.3',a:[2023,10,23],b:[2027,11,31]},{v:'8.4',a:[2024,10,21],b:[2028,11,31]},{v:'8.5',a:[2025,10,20],b:[2029,11,31]}
+  ];
+  var plot=document.createElement('div');plot.className='plot';
+  R.forEach(function(r){
+    var a=Date.UTC.apply(null,r.a),b=Date.UTC.apply(null,r.b),live=b>today,days=Math.round((b-today)/864e5);
+    var cls=!live?'':(days<120?'soon':'live');
+    var label=live?(days<120?days+' days left':'ends '+r.b[0]):'ended';
+    var row=document.createElement('div');row.className='row';
+    row.innerHTML='<span class="lab">'+r.v+'</span><div class="lane"><div class="span '+cls+'" style="left:'+x(a)+'%;width:'+(x(b)-x(a))+'%"></div>'+(x(b)>72?'<span class="t in" style="right:'+(100-x(b))+'%">'+label+'</span>':'<span class="t" style="left:'+x(b)+'%">'+label+'</span>')+'</div>';
+    hover(row,'<b>PHP '+r.v+'</b><br>security support '+(live?'until':'ended')+' '+new Date(b).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})+(live?'<br>'+days+' days from 21 Oct 2026':''));
+    plot.appendChild(row);
+  });
+  G.appendChild(plot);
+  var line=document.createElement('div');line.className='today';
+  line.style.left='calc(52px + (100% - 52px) * '+(x(today)/100)+')';line.innerHTML='<span>today</span>';
+  plot.style.paddingTop='20px';plot.appendChild(line);
+  var ticks=document.createElement('div');ticks.className='ticks';
+  [2020,2022,2024,2026,2028,2030].forEach(function(y){var s=document.createElement('span');s.style.left=x(Date.UTC(y,0,1))+'%';s.textContent=y;ticks.appendChild(s)});
+  G.appendChild(ticks);
+})();
+
+/* timeline */
+var TL={
+ years:[
+  {w:'2004',t:'First warning',d:'Stefan Esser finds a remote bug in PHP\'s memory-limit handling.'},
+  {w:'1 Mar 2012',t:'PHP 5.4.0 ships',d:'The oldest code with this flaw.'},
+  {w:'2020',t:'Bug #78876 filed',d:'An out-of-memory problem is reported; nobody shows it can be exploited.'},
+  {w:'2024',t:'Audit finds a cousin',d:'An OSTIF and Quarkslab audit finds a related issue. Left unpatched as unproven.'},
+  {w:'Aug 2026',t:'Proved with AI help',d:'Calif, then Wiz, report working attacks to PHP.',c:'hot'},
+  {w:'21 Oct 2026',t:'Fixed',d:'PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35.',c:'fix'}
+ ],
+ weeks:[
+  {w:'1 Aug',t:'Calif starts',d:'Calif begins finding ways in, as part of OpenAI\'s Patch the Planet project.',x:Date.UTC(2026,7,1)},
+  {w:'11 Aug',t:'First report to PHP',d:'Calif reports the first bug.',x:Date.UTC(2026,7,11)},
+  {w:'24 Aug',t:'Second team reports',d:'Wiz Research reports the bugs independently.',x:Date.UTC(2026,7,24)},
+  {w:'20 Oct',t:'Leak',d:'Details appear on Hacker News; watchTowr confirms the flaw. CERT-EU issues an advisory.',c:'hot',x:Date.UTC(2026,9,20)},
+  {w:'21 Oct',t:'Fixed',d:'PHP releases the patch at 14:00 UTC.',c:'fix',x:Date.UTC(2026,9,21)}
+ ],
+ hours:[
+  {w:'20 Oct',t:'Leak',d:'The CVE numbers circulate on Hacker News; watchTowr reproduces one bug.',c:'hot',x:Date.UTC(2026,9,20,12)},
+  {w:'21 Oct 03:00',t:'PHP announces',d:'php.net says a security release is coming at 14:00 UTC, earlier if attacks start.',x:Date.UTC(2026,9,21,3)},
+  {w:'07:43',t:'Attacks seen',d:'Cloudflare reports early attacks and adds firewall rules.',c:'hot',x:Date.UTC(2026,9,21,7,43)},
+  {w:'08:44',t:'WordPress hosts hit',d:'Wordify reports attack traffic against hosted WordPress sites.',c:'hot',x:Date.UTC(2026,9,21,8,44)},
+  {w:'11:55',t:'"Only patching"',d:'A PHP core developer says patching is the only mitigation.',x:Date.UTC(2026,9,21,11,55)},
+  {w:'12:00',t:'Mass scanning',d:'Automated scanners sweep large numbers of sites.',c:'hot',x:Date.UTC(2026,9,21,12)},
+  {w:'13:34',t:'Advisories public',d:'GitHub security advisories go up, 26 minutes early.',x:Date.UTC(2026,9,21,13,34)},
+  {w:'14:00',t:'Fixed',d:'PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35. Calif, Wiz and OpenAI publish.',c:'fix',x:Date.UTC(2026,9,21,14)}
+ ]
+};
+function gapText(ms){var m=Math.round(ms/6e4);if(m<60)return '+'+m+' min';var h=Math.floor(m/60),mm=m%60;if(h<48)return '+'+h+' h'+(mm?' '+mm+' m':'');return '+'+Math.round(h/24)+' days'}
+function drawTL(view){
+  var L=$('#tl'),ev=TL[view],h='';
+  ev.forEach(function(e,i){
+    if(i>0&&e.x&&ev[i-1].x){var ms=e.x-ev[i-1].x,px=Math.max(10,Math.min(60,Math.log(ms/6e4+1)*6));
+      h+='<li class="gap" aria-hidden="true"><span></span><span class="bar" style="height:'+px+'px"></span><em>'+gapText(ms)+'</em></li>'}
+    else if(i>0)h+='<li class="gap" aria-hidden="true"><span></span><span class="bar" style="height:22px"></span><em></em></li>';
+    h+='<li><span class="when">'+esc(e.w)+'</span><span class="dot '+(e.c||'')+'"></span><div class="what"><b>'+esc(e.t)+'</b><span>'+esc(e.d)+'</span></div></li>';
+  });
+  L.innerHTML=h;
+  $$('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.view===view?'true':'false')});
+}
+$$('.tabs button').forEach(function(b){b.addEventListener('click',function(){drawTL(b.dataset.view)})});
+drawTL('hours');
+
+/* fix planner */
+function C(lines){return '<div class="cmd">'+lines.map(function(l){return l.charAt(0)==='#'?'<span class="c">'+esc(l)+'</span>':esc(l)}).join('\n')+'<button class="copy">Copy</button></div>'}
+var HOST={
+ hosted:function(b){return [
+  {t:'Find the PHP version',d:'In the hosting panel look for "PHP version" or "MultiPHP Manager". In WordPress: Tools → Site Health → Info → Server.'},
+  {t:'Ask the host if it is patched',d:'Hosts may backport the fix and keep the old number, so their answer counts. Paste this into a support ticket:'+C(['Hi, is the PHP serving my site patched for CVE-2026-109618 and CVE-2026-109619 (PHP2Shell)? Which PHP build is it running, and was PHP restarted after the update?'])},
+  {t:(b==='old'||ENDED[b])?'Switch to PHP 8.3 or newer in the panel':'Pick 8.3 or newer if offered',d:'Update plugins and themes first, then switch, then load a few pages and test any forms or checkout. Many hosts can roll back if something breaks.'},
+  {t:'Turn on the host\'s firewall',d:'Many hosts and Cloudflare added rules for this attack. They help until PHP is fixed.'}
+ ]},
+ deb:function(b){var v=/^\d/.test(b)?b:'8.3';return [
+  {t:'See what is installed',d:C(["dpkg -l 'php*' | awk '/^ii/{print $2, $3}'",'sudo apt-get update','apt list --upgradable 2>/dev/null | grep php'])},
+  {t:'Upgrade PHP packages',d:'Run once per installed PHP version.'+C(["sudo apt-get install --only-upgrade 'php"+v+"*' libapache2-mod-php"+v])+'<p>Ubuntu 18.04 and 20.04 need Ubuntu Pro: <code>sudo pro fix CVE-2026-109618</code>. Ubuntu keeps the old version number, so compare package versions, not <code>php -v</code>.</p>'},
+  {t:'Restart every PHP process',d:'A reload is not enough for Apache with mod_php.'+C(['sudo systemctl restart php'+v+'-fpm','sudo systemctl restart apache2   # if you use mod_php'])},
+  {t:'Check nothing runs the old PHP',d:'Empty output means every process runs the new PHP.'+C(["sudo grep -lE ' /(usr|lib|opt).*\\(deleted\\)$' /proc/[0-9]*/maps",'sudo needrestart -b -r l'])}
+ ]},
+ rhel:function(b){return [
+  {t:'See what is installed',d:C(["rpm -qa 'php*' | sort",'dnf module list --enabled php'])},
+  {t:'Upgrade',d:C(["sudo dnf upgrade 'php*'","dnf updateinfo list --security | grep php"])+'<p>Red Hat packages trailed the release at the time of writing; check access.redhat.com. The Remi repository had no fix on release day: switch to distribution packages or build from source. RHEL 8\'s default 7.2 stream gets no fix; change streams:</p>'+C(['sudo dnf module reset -y php','sudo dnf module enable -y php:8.2','sudo dnf distro-sync -y'])},
+  {t:'Restart every PHP process',d:C(['sudo systemctl restart php-fpm','sudo systemctl restart httpd'])},
+  {t:'Check nothing runs the old PHP',d:C(["sudo grep -lE ' /(usr|lib|opt).*\\(deleted\\)$' /proc/[0-9]*/maps"])}
+ ]},
+ docker:function(b){var v=FIX[b]?b+'.'+FIX[b]:'8.3.36';return [
+  {t:'Point the image at a fixed tag',d:'For example <code>FROM php:'+v+'-fpm</code>. Release-candidate tags such as 8.5.12RC1 do not contain the fix. Docker Hub builds were still landing at the time of writing.'},
+  {t:'Rebuild and recreate',d:'A package update inside a running container is not enough; rebuild the image.'+C(['docker build --pull -t myapp .','docker compose up -d --force-recreate'])},
+  {t:'Check the version inside',d:C(['docker compose exec app php -v'])}
+ ]},
+ win:function(b){return [
+  {t:'Download the fixed build',d:'windows.php.net has 8.2.35, 8.3.36, 8.4.27 and 8.5.12.'},
+  {t:'Replace PHP and restart the web server',d:'Restart IIS or Apache so no worker keeps the old PHP.'},
+  {t:'Check',d:C(['php -v'])}
+ ]},
+ other:function(b){return [
+  {t:'LiteSpeed',d:'Upgrade the lsphp packages for your version, then stop the old workers.'+C(['sudo pkill lsphp'])},
+  {t:'FrankenPHP',d:'FrankenPHP carries its own PHP. Install a new FrankenPHP release or image; apt and dnf updates do not fix it.'},
+  {t:'Laravel queues and Octane',d:'Long-running workers keep old PHP in memory.'+C(['php artisan queue:restart'])+'<p>Restart the Octane server process too.</p>'}
+ ]}
+};
+var host='hosted',branch='8.3';
+function planVerdict(){
+  var el=$('#planVerdict');
+  if(FIX[branch])return showVerdict(el,{cls:'good',icon:'✓',title:'Target: PHP '+branch+'.'+FIX[branch]+' or later',body:branch==='8.2'?'8.2 security support ends 31 Dec 2026. Patch now, then plan 8.3 or newer.':'A fixed release exists for your branch.'});
+  if(ENDED[branch])return showVerdict(el,{cls:'warn',icon:'~',title:'PHP '+branch+': no new release',body:'Best: move to 8.3 or newer. Meanwhile, a backport from your distribution or LTS vendor, or the stopgaps below.'});
+  if(branch==='old')return showVerdict(el,{cls:'crit',icon:'✕',title:'No fix exists for your branch',body:'Move the site to PHP 8.3 or newer. Until then, put it behind a firewall or take it off the public internet.'});
+  showVerdict(el,{cls:'warn',icon:'?',title:'Find your version first',body:'The first step below shows where.'});
+}
+function drawSteps(){
+  var list=HOST[host](branch),key='php-patch:'+host+':',O=$('#steps'),h='';
+  list.forEach(function(s,i){var done=store.get(key+i)==='1';
+    h+='<li class="'+(done?'done':'')+'"><label class="tick"><input type="checkbox" data-k="'+key+i+'"'+(done?' checked':'')+'> done</label><b>'+esc(s.t)+'</b><p>'+s.d+'</p></li>'});
+  O.innerHTML=h;planVerdict();
+}
+document.addEventListener('change',function(e){var c=e.target;if(!c.dataset||!c.dataset.k)return;store.set(c.dataset.k,c.checked?'1':'0');c.closest('li').classList.toggle('done',c.checked)});
+$$('#pickHost button').forEach(function(b){b.addEventListener('click',function(){host=b.dataset.h;$$('#pickHost button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});drawSteps()})});
+$$('#pickVer button').forEach(function(b){b.addEventListener('click',function(){branch=b.dataset.b;$$('#pickVer button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});drawSteps()})});
+drawSteps();
+
+/* after patching */
+(function(){
+  var A=[
+   {t:'Strange programs started by the web server',d:'PHP-FPM or Apache launching shells, curl or wget.'},
+   {t:'New or changed PHP files in the web folder',d:'Especially single files full of scrambled code.'+C(["find /var/www -name '*.php' -newermt '2026-10-19' -ls"])},
+   {t:'Connections to unfamiliar addresses',d:'Outbound traffic from the web server soon after bursts of incoming requests.'},
+   {t:'Error bursts',d:'Spikes of memory-limit errors, HTTP 500s or PHP worker restarts, and oversized session cookies.'},
+   {t:'If anything looks wrong, change the secrets',d:'Passwords, API keys, database credentials and session keys that lived on the server. Sansec notes leaked memory can include them.'}
+  ],h='';
+  A.forEach(function(s,i){var k='php-patch:after:'+i,done=store.get(k)==='1';h+='<li class="'+(done?'done':'')+'"><label class="tick"><input type="checkbox" data-k="'+k+'"'+(done?' checked':'')+'> done</label><b>'+esc(s.t)+'</b><p>'+s.d+'</p></li>'});
+  $('#after').innerHTML=h;
+})();
+
+/* fixed picture bands */
+function memPic(id,seed){
+  var svg=document.getElementById(id);if(!svg)return;
+  var W=Math.max(window.innerWidth||800,320),H=Math.max(window.innerHeight||800,400),s=W<600?30:40,g='',r=seed;
+  function rnd(){r=(r*9301+49297)%233280;return r/233280}
+  for(var y=0;y<H;y+=s)for(var x=0;x<W;x+=s){
+    var v=rnd(),f=v>.985?'#d03b3b':v>.94?'#0ca30c':v>.6?'#2a2550':'#17142b',o=v>.94?.95:.7;
+    g+='<rect x="'+(x+4)+'" y="'+(y+4)+'" width="'+(s-8)+'" height="'+(s-8)+'" rx="6" fill="'+f+'" opacity="'+o+'"/>';
+  }
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  svg.innerHTML='<rect width="'+W+'" height="'+H+'" fill="#0d0b1a"/>'+g+'<rect width="'+W+'" height="'+H+'" fill="url(#v'+id+')"/><defs><radialGradient id="v'+id+'"><stop offset=".3" stop-color="#0d0b1a" stop-opacity="0"/><stop offset="1" stop-color="#0d0b1a" stop-opacity=".85"/></radialGradient></defs>';
+}
+memPic('mem1',7);memPic('mem2',23);
+var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){memPic('mem1',7);memPic('mem2',23)},200)});
+
+/* nav highlight */
+var links=$$('nav.top a'),secs=links.map(function(a){return $(a.getAttribute('href'))});
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=secs.indexOf(e.target);links.forEach(function(a,j){a.classList.toggle('on',i===j)})}})},{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){io.observe(s)});
+}
+
+/* share */
+var U='https://nanobotco.github.io/php-patch/',T='The PHP patch is out. Check your PHP version and fix it today:';
+$('#shLine').href='https://social-plugins.line.me/lineit/share?url='+encodeURIComponent(U);
+$('#shBsky').href='https://bsky.app/intent/compose?text='+encodeURIComponent(T+' '+U);
+$('#shFb').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(U);
+$('#shX').href='https://x.com/intent/post?text='+encodeURIComponent(T)+'&url='+encodeURIComponent(U);
+$('#shCopy').addEventListener('click',function(){if(navigator.share){navigator.share({title:'The PHP Patch',text:T,url:U}).catch(function(){})}else copy(U)});
+})();
+</script>
+</body>
+</html>

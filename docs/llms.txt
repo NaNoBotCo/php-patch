@@ -1,0 +1,10 @@
+# The PHP Patch
+
+> PHP2Shell (CVE-2026-109618, CVE-2026-109619): two bugs in the PHP engine, rated 9.2 of 10, that allow remote code execution without a login. Fixed 21 October 2026 at 14:00 UTC.
+
+- Fixed releases: PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35. PHP 7.4, 8.0 and 8.1 received source patches only; older branches have no fix.
+- At risk: every PHP install that serves web requests (PHP-FPM, Apache mod_php, php-cgi, FrankenPHP, LiteSpeed); mod_php highest.
+- Fix: update PHP, restart every PHP process, confirm no process runs the old PHP, then look for signs of a break-in.
+- Share of PHP websites (W3Techs, 21 Oct 2026): about 51% on branches with a fixed release, 34% on branches with a source patch only, 15% with no patch.
+
+Page: https://nanobotco.github.io/php-patch/
