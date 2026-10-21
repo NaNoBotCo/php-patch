@@ -255,6 +255,86 @@ th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);verti
 th{font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--ring);border-radius:14px}
 
+.hire{margin:10px 0 0;font-size:15px;color:var(--ink-2)}
+.nw{white-space:nowrap}
+.hire a{font-weight:700}
+.offer{margin:22px 0 6px;border-radius:18px;padding:18px;background:linear-gradient(135deg,#1c140a,#2a1d0c);color:#f3e9d6;border:1px solid #5a4422}
+.offer h3{margin:0 0 4px;color:#f3e9d6;font-family:Georgia,serif;font-size:24px}
+.offer h3 span{display:block;font:500 15px "Thonburi","Noto Sans Thai",system-ui,sans-serif;color:#c9a35a;margin-top:2px}
+.offer p{color:#d8ccb4;margin:6px 0}
+.offer .kinds{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+@media (max-width:760px){.offer .kinds{grid-template-columns:repeat(2,1fr)}}
+.offer .k{background:rgba(0,0,0,.28);border:1px solid #5a4422;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;text-decoration:none;color:#f3e9d6}
+.offer .k:hover{border-color:#e2b860}
+.offer .k b{font-size:14px;line-height:1.25}
+.offer .k .pr{font-family:Georgia,serif;font-size:24px;color:#e2b860;line-height:1.1;margin-top:4px}
+.offer .k small{color:#b9ab90;font-size:12.5px}
+.offer .cta{display:inline-block;background:#e2b860;color:#1c140a;font-weight:800;border-radius:10px;padding:10px 16px;text-decoration:none}
+.offer .fine{font-size:13px;color:#b9ab90}
+.strip{position:relative;height:56px;margin:4px 0 0;border-bottom:1px solid var(--axis)}
+.strip button{position:absolute;bottom:6px;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:2px solid var(--surface);padding:0;cursor:pointer}
+.strip button[aria-pressed="true"]{transform:scale(1.5);box-shadow:0 0 0 3px var(--accent)}
+.strip .fixline{position:absolute;top:0;bottom:0;width:2px;background:var(--good)}
+.strip .fixline span{position:absolute;top:0;left:4px;font:700 11px ui-monospace,Menlo,monospace;color:var(--good-ink);white-space:nowrap}
+.strip-axis{position:relative;height:20px;margin-bottom:10px}
+.strip-axis span{position:absolute;transform:translateX(-50%);font-size:11px;color:var(--muted);white-space:nowrap}
+.reports{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.reports li{display:grid;grid-template-columns:96px 14px 1fr;gap:8px;align-items:start;padding:6px 8px;border-radius:10px;cursor:pointer}
+.reports li.on{background:var(--surface-2)}
+.reports li .t{font:600 12.5px ui-monospace,Menlo,monospace;color:var(--ink-2)}
+.reports li i{width:12px;height:12px;border-radius:50%;margin-top:4px}
+.reports li b{display:block;font-size:15px}
+.reports li span.d{font-size:14px;color:var(--ink-2)}
+.c-none{background:#898781}.c-probe{background:var(--series)}.c-try{background:#eb6834}.c-claim{background:#e34948}.c-event{background:#9085e9}
+.offline{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+@media (max-width:760px){.offline{grid-template-columns:1fr 1fr}}
+@media (max-width:330px){.offline{grid-template-columns:1fr}}
+.offline .o{background:var(--surface);border:1px solid var(--ring);border-radius:14px;padding:12px}
+.offline .o b{display:block;font-size:16px}
+.offline .o .f{font-size:24px;line-height:1}
+.offline .o p{margin:4px 0 0;font-size:14px;color:var(--ink-2)}
+.race{display:grid;gap:3px}
+.race .r{display:grid;grid-template-columns:130px 1fr;gap:8px;align-items:center;font-size:13.5px}
+@media (max-width:560px){.race .r{grid-template-columns:100px 1fr;font-size:12.5px}}
+.race .r .lab{text-align:right;color:var(--ink-2);line-height:1.2}
+.race .lane{position:relative;height:20px}
+.race .zero{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--good)}
+.race .bar{position:absolute;top:2px;height:16px;border-radius:3px;background:var(--series)}
+.race .bar.early{background:#9085e9}
+.race .bar.wait{background:repeating-linear-gradient(135deg,var(--axis),var(--axis) 4px,transparent 4px,transparent 8px);border:1px solid var(--axis)}
+.race .v{position:absolute;top:0;line-height:20px;font-size:12px;color:var(--ink-2);white-space:nowrap;padding:0 5px}
+.race-axis{position:relative;height:18px;margin-left:138px;border-top:1px solid var(--axis)}
+@media (max-width:560px){.race-axis{margin-left:108px}}
+.race-axis span{position:absolute;top:2px;transform:translateX(-50%);font-size:11px;color:var(--muted);white-space:nowrap}
+.sw.hatch{background:repeating-linear-gradient(135deg,var(--axis),var(--axis) 3px,transparent 3px,transparent 6px);border:1px solid var(--axis)}
+.finders{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+@media (max-width:760px){.finders{grid-template-columns:1fr 1fr}}
+.finders .card{padding:12px}
+.finders b{display:block;font-size:16px;margin-bottom:4px}
+.finders p{margin:6px 0 0;font-size:14px;color:var(--ink-2)}
+.cmp{display:grid;gap:4px}
+.cmp .r{display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;font-size:13.5px}
+@media (max-width:560px){.cmp .r{grid-template-columns:96px 1fr;font-size:12.5px}}
+.cmp .lab{text-align:right;color:var(--ink-2);line-height:1.2}
+.cmp .lab small{display:block;color:var(--muted);font-size:11px}
+.cmp .r.me .lab{color:var(--hot);font-weight:800}
+.cmp .lane{position:relative;height:22px}
+.cmp .bar{position:absolute;top:3px;height:16px;border-radius:3px;background:var(--series)}
+.cmp .r.me .bar{background:var(--hot)}
+.cmp .bar.neg{background:#9085e9}
+.cmp .whisk{position:absolute;top:10px;height:2px;background:var(--ink-2)}
+.cmp .mid{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--axis)}
+.cmp .v{position:absolute;top:0;line-height:22px;font-size:12px;color:var(--ink-2);white-space:nowrap;padding:0 5px}
+.cmp .v.in{color:#fff;font-weight:700}
+ol.trends{padding-left:20px;max-width:70ch}
+ol.trends li{margin-bottom:10px}
+@media (max-width:640px){
+ .race .lane,.cmp .lane{height:36px}
+ .race .r,.cmp .r{align-items:start}
+ .race .r .lab,.cmp .lab{padding-top:1px}
+ .race .v,.cmp .v{top:18px!important;left:0!important;right:auto!important;line-height:16px;color:var(--ink-2)!important;font-weight:400!important}
+ .cmp .mid,.race .zero{bottom:16px}
+}
 .sources{columns:2;column-gap:28px;font-size:15px;padding-left:18px}
 @media (max-width:760px){.sources{columns:1}}
 .sources li{break-inside:avoid;margin-bottom:8px}
@@ -290,6 +370,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
             <button class="chip" data-v="PHP 5.6.40">5.6.40</button>
           </div>
           <div class="verdict" id="verdict" aria-live="polite"><p>Fixed releases: <b>8.5.12</b>, <b>8.4.27</b>, <b>8.3.36</b>, <b>8.2.35</b> or later.</p></div>
+          <p class="hire" id="hire">Or have it done: <a id="hireLink" href="https://hongdam.net/php/#book"><span id="hireTxt">Hongdam fixes PHP, a server</span> <span class="nw" data-hd="server">฿5,000</span></a></p>
         </div>
       </div>
       <div>
@@ -310,6 +391,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
   <div class="wrap">
     <a href="#meaning">Meaning</a>
     <a href="#timeline">Timeline</a>
+    <a href="#news">News</a>
     <a href="#who">Who</a>
     <a href="#fix">Fix</a>
     <a href="#sources">Sources</a>
@@ -368,7 +450,88 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
       <button role="tab" aria-selected="true" data-view="hours">Last 36 hours</button>
     </div>
     <ol class="tl" id="tl"></ol>
-    <p class="small muted">Times in UTC. 03:00 UTC on 21 October is the evening of 20 October in the US.</p>
+    <p class="small muted">Times in UTC; Bangkok is seven hours ahead. The PHP Foundation's own account sets the order of the first three events.</p>
+  </div>
+</section>
+
+<section id="news">
+  <div class="wrap">
+    <div class="eyebrow">News</div>
+    <h2>Day one: wide probing, few confirmed break-ins, and governments switched their own sites off</h2>
+    <p>Read to 23:00 UTC on 21 October, nine hours after the fix. Reports of attacks rose all day, but as of then no defender had published a confirmed break-in. The biggest measured effect was organisations taking themselves offline on official advice.</p>
+    <div class="stats">
+      <div class="stat"><b>2.6 M</b><span>internet-facing PHP hosts (VulnCheck); 57% show an unfixed version, 43% hide theirs</span></div>
+      <div class="stat"><b>245</b><span>hosts showing a patched version on day one (OX Security, Shodan)</span></div>
+      <div class="stat"><b>211</b><span>Japanese organisations that announced shutdowns or checks by 01:00 JST (piyolog tally)</span></div>
+      <div class="stat"><b>100+</b><span>GitHub repos claiming an exploit by mid-afternoon; some suspected of carrying malware (Precursor)</span></div>
+    </div>
+
+    <h3>Attacks: who saw what, and when</h3>
+    <div class="chart">
+      <h4>Claims of attack ran ahead of evidence</h4>
+      <p class="sub">Each dot is one public report, 20–21 October (UTC). Tap a dot or a row.</p>
+      <div class="legend" id="atkLegend"></div>
+      <div class="strip" id="atkStrip" role="img" aria-label="Timeline of attack reports from 20 October 15:00 to 21 October 23:00 UTC"></div>
+      <div class="strip-axis" id="atkAxis" aria-hidden="true"></div>
+      <ol class="reports" id="atkList"></ol>
+    </div>
+    <p class="small muted">The one intrusion attempt logged in detail, on VulnCheck's decoy servers at 17:22 UTC, tried to plant a web shell (a hidden control page) and failed. No vendor had published counts of blocked requests, compromised sites or attacker countries.</p>
+
+    <h3>Who switched off</h3>
+    <p>CISA, the NSA and the UK NCSC told organisations that could not patch to take PHP systems offline. Many did, most without having seen an attack.</p>
+    <div class="offline" id="offline"></div>
+
+    <h3>The patch race</h3>
+    <div class="chart">
+      <h4>Most vendors had fixed packages within seven hours; several had none by evening</h4>
+      <p class="sub">Hours from PHP's release (14:00 UTC, 21 Oct) until each vendor had a fix out. Most times are when a roundup found the fix, so the fix may be older. Hatched: still waiting at the last check.</p>
+      <div class="legend"><span><i class="sw" style="background:var(--series)"></i>Fixed by</span><span><i class="sw hatch"></i>Not yet at last check</span><span><i class="sw" style="background:#9085e9"></i>Before the release</span></div>
+      <div class="race" id="race"></div>
+      <div class="race-axis" id="raceAxis" aria-hidden="true"></div>
+    </div>
+    <p class="small muted">End-of-life branches (7.4 to 8.1) rely on source patches, distribution backports and paid support vendors. The sury.org packages used by many Debian and Ubuntu servers carried backports all the way to PHP 5.6. Amazon Linux 2 lists its core PHP as "No Fix Planned".</p>
+
+    <h3>How it was found</h3>
+    <p>At least three teams found the bug independently in August 2026, each working with AI models. The PHP Foundation says one of its developers saw first signs of the same out-of-memory problem in a 2024 audit, and the fix stalled for months; it calls that a structural failure of its own decision process.</p>
+    <div class="finders">
+      <div class="card"><b>Calif</b><span class="tag">first report 11 Aug</span><p>Working under OpenAI's Patch the Planet project. Calif says knowing PHP's history mattered more than the model.</p></div>
+      <div class="card"><b>OpenAI</b><span class="tag">same root cause, 11 Aug</span><p>Says that, to its knowledge, AI found these before attackers did, and expects similar findings to rise sharply.</p></div>
+      <div class="card"><b>Wiz Research</b><span class="tag">report 24 Aug</span><p>Used Gemini and GPT models. Says one researcher did in about a week what once took a world-class team months.</p></div>
+      <div class="card"><b>Chainguard</b><span class="tag">rediscovered</span><p>Says it found the bug again with its own tooling, one reason it shipped fixed images six hours early.</p></div>
+    </div>
+    <div class="chart">
+      <h4>PHP's security inbox since 1 July</h4>
+      <p class="sub">Reports to the PHP security team, per the PHP Foundation (21 Oct). It says AI-assisted research has raised the volume sharply.</p>
+      <div class="bars" id="inboxBars"></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><b>The embargo argument</b><p class="small">The PHP Foundation says Chainguard broke the embargo and handed attackers the fix in binary form. Chainguard's CEO says vendors were reporting attacks and the bug was easy to rediscover. Commenters on Hacker News split on whether coordinated disclosure still works when a vague hint is enough to find a bug again.</p></div>
+      <div class="card"><b>Who pays for PHP's security</b><p class="small">A small team funded by the PHP Foundation, plus volunteers. The 2024 audit was paid for by Germany's Sovereign Tech Agency; the Ecosystem Security Team by Alpha-Omega. The Foundation has asked hosts, cloud providers and governments to fund more.</p></div>
+    </div>
+
+    <h3>Compared</h3>
+    <div class="chart" id="cmp">
+      <h4 id="cmpTitle"></h4>
+      <p class="sub" id="cmpSub"></p>
+      <div class="tabs" role="tablist" aria-label="Compare by">
+        <button role="tab" data-m="when" aria-selected="true">First attack</button>
+        <button role="tab" data-m="age" aria-selected="false">Bug age</button>
+        <button role="tab" data-m="hosts" aria-selected="false">Exposed hosts</button>
+      </div>
+      <div class="cmp" id="cmpBars"></div>
+      <p class="small muted" id="cmpNote" style="margin:10px 0 0"></p>
+    </div>
+    <p>Researchers compare PHP2Shell most often with <b>Heartbleed</b>, for the memory leak (Wiz, Sansec), and with <b>Log4Shell</b>, for a buried component that every company first has to find in its own systems. The earlier PHP flaw closest in kind, CVE-2024-4577, was exploited within a day and used by ransomware; its exposed count fell 96% in nine months. Heartbleed still had about 91,000 exposed servers five years after its fix.</p>
+
+    <h3>Trends</h3>
+    <ol class="trends">
+      <li><b>AI shortened the clock.</b> Three teams found the bug within weeks of each other, all with AI help, and the PHP Foundation reports more AI-assisted reports than its small team can easily handle. OpenAI and Chainguard both expect more like this.</li>
+      <li><b>Embargoes leak sooner.</b> The bug numbers leaked 23 hours before the planned release, PHP moved the release forward a day, and one vendor shipped six hours early anyway.</li>
+      <li><b>"Take it offline" became the stopgap.</b> Agencies in the US, UK and the Netherlands advised it before any confirmed break-in, and governments from Czechia to Denmark complied on their own sites.</li>
+      <li><b>The long tail is end-of-life PHP.</b> About 1.1 million exposed hosts run branches PHP no longer releases fixes for (VulnCheck). Past bugs suggest a fast first drop and then a residue that lasts for years.</li>
+      <li><b>Markets read it as demand for defenders.</b> Cloudflare rose about 5.5% and CrowdStrike about 5.3% intraday on 21 October (Investing.com).</li>
+      <li><b>Asia was loudest in Japan.</b> The Prime Minister addressed it, hosts went into emergency maintenance, and a public tally counted 211 organisations. Singapore and Australia issued alerts. As of the evening of 21 October, ThaiCERT had published no notice that this page could find.</li>
+    </ol>
   </div>
 </section>
 
@@ -509,6 +672,19 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
       <ol class="steps" id="steps"></ol>
     </div>
 
+    <div class="offer" id="hongdam">
+      <h3>PHP fix by Hongdam<span lang="th">แก้ PHP โดยหงส์ดำ</span></h3>
+      <p>Hongdam's team puts a fixed PHP on your site or server. On a server it also restarts PHP, looks for signs of a break-in and sends a report. Bookings set the price: each Monday a busy week moves it up a step, a quiet one down.</p>
+      <div class="kinds" id="hdKinds">
+        <a class="k" href="https://hongdam.net/php/?kind=hosted#book"><b>Hosted site</b><span class="pr" data-hd="hosted">฿3,000</span><small data-hdu="hosted">US$90 by PayPal</small></a>
+        <a class="k" href="https://hongdam.net/php/?kind=server#book"><b>Server</b><span class="pr" data-hd="server">฿5,000</span><small data-hdu="server">US$150 by PayPal</small></a>
+        <a class="k" href="https://hongdam.net/php/?kind=upgrade#book"><b>Upgrade off 7.4–8.1</b><span class="pr" data-hd="upgrade">฿10,000</span><small data-hdu="upgrade">US$305 by PayPal</small></a>
+        <a class="k" href="https://hongdam.net/php/?kind=fleet#book"><b>Five servers</b><span class="pr" data-hd="fleet">฿20,000</span><small data-hdu="fleet">US$605 by PayPal</small></a>
+      </div>
+      <a class="cta" href="https://hongdam.net/php/#book">Book a slot on hongdam.net</a>
+      <p class="fine">A paid service. Hongdam is the studio behind this page. PromptPay, PayPal or Wise; server access is arranged on LINE after payment. PHP older than 7.4: a price after a look, on <a href="https://line.me/R/oaMessage/%40964yxgnk/" style="color:#e2b860">LINE</a>.</p>
+    </div>
+
     <h3>Fixed versions</h3>
     <div class="tablewrap">
       <table>
@@ -566,7 +742,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
   <div class="wrap">
     <div class="eyebrow">Sources</div>
     <h2>Sources</h2>
-    <p class="small muted">Read 21 Oct 2026, 15:15 UTC, an hour after the release. Early reports disagree on some details; this page follows php.net where they differ.</p>
+    <p class="small muted">First read 21 Oct 2026, 15:15 UTC; news section read to 23:00 UTC the same day. Early reports disagree on some details; this page follows php.net where they differ.</p>
     <ol class="sources">
       <li><a href="https://www.php.net/">php.net</a>, security announcement, 21 Oct 2026: fixed versions, setups at risk, interim settings.</li>
       <li><a href="https://sansec.io/research/php2shell">Sansec</a>, PHP2Shell: confirmed apps, timeline, stopgaps, history since 2004.</li>
@@ -579,6 +755,15 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
       <li><a href="https://ubuntu.com/blog/php2shell-vulnerability-fixes-available">Ubuntu</a>: fixed package versions.</li>
       <li><a href="https://wordify.com/blog/php-security-vulnerability-wordpress-october-2026/">Wordify</a>, live updates: 08:44 and 12:00 UTC reports, PHP support dates.</li>
       <li><a href="https://w3techs.com/technologies/details/pl-php">W3Techs</a>: PHP share of websites and version split (<a href="https://w3techs.com/technologies/details/pl-php/8">8.x</a>, <a href="https://w3techs.com/technologies/details/pl-php/7">7.x</a>), 21 Oct 2026.</li>
+      <li><a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a>, 21 Oct: timeline, 2024 audit, inbox figures, embargo, funding.</li>
+      <li><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a>, <a href="https://patchstack.com/articles/php-major-vulnerability-alert-10-2026/">Patchstack</a>, <a href="https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619">Hadrian</a>, <a href="https://watchtowr.com/intelligence/php-remote-code-execution-php2shell/">watchTowr</a>, <a href="https://www.vulncheck.com/blog/php2shell-vulnerabilities">VulnCheck</a>, <a href="https://www.huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities">Huntress</a>, <a href="https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/">SecurityWeek</a>: attack reports and host counts.</li>
+      <li><a href="https://www.ox.security/blog/cve-2026-109618-cve-2026-109619-two-vulnerabilities-allow-unauthenticated-rce-in-php/">OX Security</a>: hosts showing a patched version. <a href="https://www.precursorsecurity.com/blog/php2shell-critical-php-rce-vulnerabilities">Precursor</a> live blog: exploit repos.</li>
+      <li><a href="https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching">CISA</a>, <a href="https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php">UK NCSC</a>, <a href="https://cert.europa.eu/publications/security-advisories/2026-018/">CERT-EU</a>, <a href="https://www.csa.gov.sg/alerts-and-advisories/alerts/al-2026-151/">CSA Singapore</a>: advisories.</li>
+      <li><a href="https://live.euronext.com/en/financial-news/factbox-websites-taken-offline-over-php-risks">Reuters factbox via Euronext</a>, <a href="https://www.insurancebusinessmag.com/uk/news/cyber/uk-councils-and-met-police-among-sites-pulled-offline-after-ncsc-alert-594424.aspx">Insurance Business</a>, <a href="https://www.techzine.eu/blogs/security/145168/php-shuts-the-internet-why-php2shell-affects-every-company/">Techzine</a>, <a href="https://therecord.media/php-script-vulnerabilities-warnings">The Record</a>, <a href="https://piyolog.hatenadiary.jp/entry/2026/10/21/174516">piyolog</a>, <a href="https://www.itmedia.co.jp/news/article/2610/21/2000002472/">ITmedia</a>, <a href="https://diff.wikimedia.org/2026/10/21/impact-of-php-vulnerabilities-on-wikimedia-cloud-services/">Wikimedia</a>: sites taken offline.</li>
+      <li><a href="https://www.digitalapplied.com/blog/php2shell-fixes-by-distro-control-panel-php-version">Digital Applied</a> fix tracker, <a href="https://ubuntu.com/security/notices/USN-8948-1">USN-8948-1</a>, <a href="https://cloudlinux.statuspage.io/incidents/zl0vt1yq3dj5">CloudLinux status</a>: the patch race.</li>
+      <li><a href="https://www.wiz.io/blog/php2shell-php-rce">Wiz</a>, <a href="https://fortune.com/2026/10/21/ai-tools-discovered-the-php-vulnerability-that-could-take-down-70-of-the-internet-now-the-race-is-on-to-patch-it-before-ai-powered-hackers-attack/">Fortune</a>, <a href="https://decrypt.co/381567/who-found-php-bug-governments-unplug-websites-chatgpt">Decrypt</a>, <a href="https://thenextweb.com/news/php2shell-php-rce-ai-openai-wiz">TNW</a>, <a href="https://socket.dev/blog/php-embargo-dispute">Socket</a>, <a href="https://therecord.media/php-foundation-statement-critical-vulnerabilities">The Record</a>: discovery, AI and the embargo dispute.</li>
+      <li><a href="https://au.investing.com/news/stock-market-news/php-patches-critical-flaw-hitting-70-of-websites-cloudflare-others-surge-4705277">Investing.com</a>: share prices.</li>
+      <li>Comparison figures: <a href="https://en.wikipedia.org/wiki/Heartbleed">Heartbleed</a>, <a href="https://en.wikipedia.org/wiki/Shellshock_(software_bug)">Shellshock</a>, <a href="https://en.wikipedia.org/wiki/Log4Shell">Log4Shell</a>, <a href="https://blog.shodan.io/analyzing-post-wannacry-smb-exposure/">Shodan on EternalBlue</a>, <a href="https://censys.com/blog/cve-2024-4577">Censys on CVE-2024-4577</a>, <a href="https://www.emsisoft.com/en/blog/44123/unpacking-the-moveit-breach-statistics-and-analysis/">Emsisoft on MOVEit</a>, <a href="https://www.theregister.com/2023/10/31/mass_exploitation_citrix_bleed/">The Register on Citrix Bleed</a>, <a href="https://blog.qualys.com/vulnerabilities-threat-research/2024/07/01/regresshion-remote-unauthenticated-code-execution-vulnerability-in-openssh-server">Qualys on regreSSHion</a>, <a href="https://securityaffairs.com/92997/hacking/cve-2019-11043-php7-flaw.html">Security Affairs on CVE-2019-11043</a>.</li>
       <li><a href="https://www.forbes.com/sites/daveywinder/2026/10/21/critical-php-security-warning-issued-apply-emergency-patch-today/">Forbes</a> and <a href="https://laravel-news.com/php-critical-security-release">Laravel News</a>: release notice.</li>
     </ol>
     <div class="share" aria-label="Share">
@@ -662,7 +847,22 @@ function judge(raw){
   return {cls:'crit',icon:'✕',title:'PHP '+br+': no fix exists',body:'PHP gives no patch for this branch. Move the site to PHP 8.3 or newer, or take it off the public internet until then (UK NCSC advice). <a href="#fix">Fix steps</a>.'};
 }
 function showVerdict(el,v){if(!v)return;el.className='verdict '+v.cls;el.innerHTML='<h3><span class="ico '+v.cls+'" aria-hidden="true">'+v.icon+'</span>'+esc(v.title)+'</h3><p>'+v.body+'</p>'}
-function runCheck(){showVerdict($('#verdict'),judge($('#ver').value))}
+var HIRE={server:'Hongdam fixes PHP, a server',upgrade:'Hongdam moves a site off PHP 7.4–8.1'};
+function runCheck(){var v=judge($('#ver').value);showVerdict($('#verdict'),v);
+  var m=String($('#ver').value).match(/(\d+)\.(\d+)(?:\.(\d+))?/),work=v&&(v.cls==='crit'||(v.cls==='warn'&&/distribution/.test(v.title))),kind='server',older=false,br='';
+  if(work&&m){br=m[1]+'.'+m[2];if(!FIX[br]){kind='upgrade';older=!ENDED[br]}}
+  $('#hire').hidden=!!(v&&v.cls==='good');
+  var a=$('#hireLink'),hs=a.querySelector('[data-hd]');
+  if(older){a.href='https://line.me/R/oaMessage/%40964yxgnk/?'+encodeURIComponent('PHP '+m[0]+': a price for a move to PHP 8.3?');$('#hireTxt').textContent='Hongdam moves sites off PHP '+br+': a price after a look on LINE';hs.textContent='';return}
+  a.href='https://hongdam.net/php/?kind='+kind+(work&&m?'&php='+encodeURIComponent(m[0]):'')+'#book';
+  $('#hireTxt').textContent=HIRE[kind];hs.setAttribute('data-hd',kind);hs.textContent=(HD[kind]||(kind==='upgrade'?'฿10,000':'฿5,000'))+' this week';}
+var HD={};
+fetch('https://hongdam.net/api/php').then(function(r){return r.json()}).then(function(j){(j.kinds||[]).forEach(function(k){
+  HD[k.id]='฿'+k.baht.toLocaleString('en-US');
+  $$('[data-hd="'+k.id+'"]').forEach(function(e){if(e.textContent)e.textContent=HD[k.id]+(e.closest('#hire')?' this week':'')});
+  var left=k.slots-k.booked;
+  $$('[data-hdu="'+k.id+'"]').forEach(function(e){e.textContent='US$'+k.usd.toLocaleString('en-US')+' by PayPal · '+(left>0?left+(left===1?' slot':' slots')+' left':'this week full')});
+})}).catch(function(){});
 $('#verGo').addEventListener('click',runCheck);
 $('#ver').addEventListener('keydown',function(e){if(e.key==='Enter')runCheck()});
 $('#ver').addEventListener('input',function(){if(/\d+\.\d+\.\d+/.test(this.value))runCheck()});
@@ -780,10 +980,12 @@ var TL={
   {w:'21 Oct',t:'Fixed',d:'PHP releases the patch at 14:00 UTC.',c:'fix',x:Date.UTC(2026,9,21)}
  ],
  hours:[
-  {w:'20 Oct',t:'Leak',d:'The CVE numbers circulate on Hacker News; watchTowr reproduces one bug.',c:'hot',x:Date.UTC(2026,9,20,12)},
-  {w:'21 Oct 03:00',t:'PHP announces',d:'php.net says a security release is coming at 14:00 UTC, earlier if attacks start.',x:Date.UTC(2026,9,21,3)},
-  {w:'07:43',t:'Attacks seen',d:'Cloudflare reports early attacks and adds firewall rules.',c:'hot',x:Date.UTC(2026,9,21,7,43)},
-  {w:'08:44',t:'WordPress hosts hit',d:'Wordify reports attack traffic against hosted WordPress sites.',c:'hot',x:Date.UTC(2026,9,21,8,44)},
+  {w:'20 Oct 15:20',t:'Leak',d:'The bug numbers appear in a Hacker News post, later deleted.',c:'hot',x:Date.UTC(2026,9,20,15,20)},
+  {w:'20 Oct 19:30',t:'PHP moves the release up',d:'From 22 to 21 October at 14:00 UTC, so distributions can still package it.',x:Date.UTC(2026,9,20,19,30)},
+  {w:'20 Oct 20:00',t:'A demo leaks',d:'A finder posts a video of the attack by mistake and deletes it; copies spread.',c:'hot',x:Date.UTC(2026,9,20,20)},
+  {w:'21 Oct 03:02',t:'Cloudflare rules on',d:'Firewall rules for every Cloudflare customer, free plan included.',x:Date.UTC(2026,9,21,3,2)},
+  {w:'07:41',t:'Fixed images, early',d:'Chainguard ships patched container images more than six hours before the release.',x:Date.UTC(2026,9,21,7,41)},
+  {w:'07:43',t:'Attacks seen',d:'Cloudflare reports early attacks.',c:'hot',x:Date.UTC(2026,9,21,7,43)},
   {w:'11:55',t:'"Only patching"',d:'A PHP core developer says patching is the only mitigation.',x:Date.UTC(2026,9,21,11,55)},
   {w:'12:00',t:'Mass scanning',d:'Automated scanners sweep large numbers of sites.',c:'hot',x:Date.UTC(2026,9,21,12)},
   {w:'13:34',t:'Advisories public',d:'GitHub security advisories go up, 26 minutes early.',x:Date.UTC(2026,9,21,13,34)},
@@ -804,6 +1006,133 @@ function drawTL(view){
 }
 $$('.tabs button').forEach(function(b){b.addEventListener('click',function(){drawTL(b.dataset.view)})});
 drawTL('hours');
+/* news: attack reports */
+(function(){
+  var T0=Date.UTC(2026,9,20,15),T1=Date.UTC(2026,9,21,23),span=T1-T0;
+  function px(t){return ((t-T0)/span*100).toFixed(2)+'%'}
+  var CAT={event:['c-event','Leak and release'],none:['c-none','Saw no exploitation'],probe:['c-probe','Probing'],try:['c-try','Attempts seen'],claim:['c-claim','Exploitation claimed, unconfirmed']};
+  var R=[
+   {x:Date.UTC(2026,9,20,15,20),c:'event',w:'20 Oct 15:20',t:'Leak',d:'The bug numbers appear in a Hacker News post, later deleted (PHP Foundation).'},
+   {x:Date.UTC(2026,9,20,18,26),c:'event',w:'20 Oct 18:26',t:'Confirmed real',d:'watchTowr says the bugs exist and holds back details.'},
+   {x:Date.UTC(2026,9,20,19,30),c:'event',w:'20 Oct 19:30',t:'Release moved up',d:'PHP brings the fix forward from 22 to 21 October.'},
+   {x:Date.UTC(2026,9,21,3,2),c:'try',w:'21 Oct 03:02',t:'Cloudflare sees attack traffic',d:'Rules switched on for every customer; Cloudflare says attackers changed their requests to slip past them.'},
+   {x:Date.UTC(2026,9,21,7,34),c:'claim',w:'07:34',t:'Hosting firms report exploitation',d:'Reported to Patchstack, whose own data showed probing only.'},
+   {x:Date.UTC(2026,9,21,7,43),c:'try',w:'07:43',t:'"Early attacks"',d:'Cloudflare\'s CTO, on X.'},
+   {x:Date.UTC(2026,9,21,11,35),c:'claim',w:'11:35',t:'"At scale"',d:'Hadrian, with no numbers; nobody else confirmed it.'},
+   {x:Date.UTC(2026,9,21,14,0),c:'try',w:'14:00',t:'Decoys hit',d:'watchTowr\'s honeypots log attempts on both bugs; none had worked, per SecurityWeek.'},
+   {x:Date.UTC(2026,9,21,14,10),c:'none',w:'14:00',t:'Huntress: none seen',d:'Across its partners, at 10:00 New York time.'},
+   {x:Date.UTC(2026,9,21,15,30),c:'none',w:'21 Oct',t:'CISA: not observed',d:'The US agency had seen no exploitation when it published its alert.'},
+   {x:Date.UTC(2026,9,21,17,22),c:'try',w:'17:22',t:'One web-shell attempt',d:'On VulnCheck\'s decoy servers. Every follow-up request failed.'},
+   {x:Date.UTC(2026,9,21,20,30),c:'none',w:'20:30',t:'Huntress: still none',d:'No confirmed break-in across its partners.'}
+  ];
+  var used={};R.forEach(function(r){used[r.c]=1});
+  $('#atkLegend').innerHTML=Object.keys(CAT).filter(function(k){return used[k]}).map(function(k){return '<span><i class="sw '+CAT[k][0]+'"></i>'+CAT[k][1]+'</span>'}).join('');
+  var S=$('#atkStrip'),L=$('#atkList'),A=$('#atkAxis');
+  S.innerHTML='<div class="fixline" style="left:'+px(Date.UTC(2026,9,21,14))+'"><span>fix</span></div>';
+  [[Date.UTC(2026,9,20,18),'20 Oct 18:00'],[Date.UTC(2026,9,21,6),'21 Oct 06:00'],[Date.UTC(2026,9,21,18),'18:00']].forEach(function(t){A.innerHTML+='<span style="left:'+px(t[0])+'">'+t[1]+'</span>'});
+  function pick(i){$$('#atkStrip button').forEach(function(b,j){b.setAttribute('aria-pressed',j===i?'true':'false')});$$('#atkList li').forEach(function(l,j){l.classList.toggle('on',j===i)})}
+  R.forEach(function(r,i){
+    var b=document.createElement('button');b.className=CAT[r.c][0];b.style.left=px(r.x);b.style.bottom=(6+(i%2)*14)+'px';
+    b.setAttribute('aria-label',r.w+': '+r.t);b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',function(){pick(i);L.children[i].scrollIntoView({block:'nearest',behavior:'smooth'})});
+    hover(b,'<b>'+esc(r.w)+' · '+esc(r.t)+'</b><br>'+esc(r.d));S.appendChild(b);
+    var li=document.createElement('li');li.innerHTML='<span class="t">'+esc(r.w)+'</span><i class="'+CAT[r.c][0]+'"></i><div><b>'+esc(r.t)+'</b><span class="d">'+esc(r.d)+'</span></div>';
+    li.addEventListener('click',function(){pick(i)});L.appendChild(li);
+  });
+})();
+
+/* news: who switched off */
+(function(){
+  var O=[
+   ['🇳🇱','Netherlands','DigiD and MijnOverheid logins, parliament, the Port of Rotterdam, hospitals. NCSC-NL took its own site down and tracks 635 products.'],
+   ['🇬🇧','United Kingdom','Edinburgh and Oxford councils and the Met Police site went unavailable after the NCSC alert.'],
+   ['🇩🇪','Germany','ITZBund took several federal sites offline; Charité Berlin went offline.'],
+   ['🇫🇷','France','The Interior Ministry switched off prefecture sites until the fix.'],
+   ['🇧🇪','Belgium','The foreign ministry\'s sites went off; the national cyber centre had recorded no attacks.'],
+   ['🇫🇮','Finland','Valtori shut government web services; it found no attempts.'],
+   ['🇩🇰','Denmark','Kombit took municipal services offline, the national school platform among them.'],
+   ['🇨🇿','Czechia','The government website went offline at 17:00 GMT on the cyber watchdog\'s advice.'],
+   ['🇯🇵','Japan','The Prime Minister spoke about it; Sakura Internet went into emergency maintenance; a tally counted 211 organisations.'],
+   ['🇺🇸','United States','CISA and the NSA advised going offline if unpatchable. BambooHR was down for six hours.'],
+   ['🇦🇺','Australia','The ACSC issued its highest alert; its own cyber.gov.au was reportedly among affected sites.'],
+   ['🌐','Wikimedia','Toolforge, Cloud VPS and Phabricator went down as a precaution; Phabricator was back by evening.']
+  ];
+  $('#offline').innerHTML=O.map(function(o){return '<div class="o"><span class="f" aria-hidden="true">'+o[0]+'</span><b>'+o[1]+'</b><p>'+esc(o[2])+'</p></div>'}).join('');
+})();
+
+/* news: patch race */
+(function(){
+  var lo=-7,hi=10;function x(h){return ((h-lo)/(hi-lo)*100)}
+  var P=[
+   ['Chainguard images',-6.3,'early','07:41, six hours early'],
+   ['CloudLinux PHP 7.4',0.65,'','14:39'],
+   ['Ubuntu',0.93,'','14:56'],
+   ['Debian',6.4,'','by 20:25'],
+   ['sury.org (Debian/Ubuntu)',6.4,'','by 20:26'],
+   ['Red Hat 9 and 10',6.4,'','by 20:26'],
+   ['Docker images',6.5,'','by 20:28'],
+   ['cPanel',6.6,'','by 20:35'],
+   ['SUSE 15',6.6,'','by 20:38'],
+   ['Plesk',6.7,'','by 20:43'],
+   ['CloudLinux, all ea-php',6.9,'','20:55'],
+   ['AlmaLinux',7.25,'','about 21:15'],
+   ['Rocky, Oracle Linux',6.7,'wait','none at 20:40'],
+   ['DirectAdmin',6.6,'wait','none at 20:34'],
+   ['Amazon Linux',6.6,'wait','pending at 20:38'],
+   ['Red Hat 8, PHP 8.2',7.8,'wait','none at 21:49'],
+   ['Remi repository',10,'wait','none on release day']
+  ];
+  var R=$('#race');
+  R.innerHTML=P.map(function(p){
+    var a=Math.min(x(0),x(p[1])),b=Math.max(x(0),x(p[1]));
+    var vpos=p[1]<0?'right:'+(100-a)+'%':'left:'+b+'%';
+    var lab=p[2]==='wait'?'':(p[1]<0?'':'+'+(Math.round(p[1]*10)/10)+' h');
+    return '<div class="r" tabindex="0"><span class="lab">'+esc(p[0])+'</span><div class="lane"><span class="zero" style="left:'+x(0)+'%"></span><span class="bar '+p[2]+'" style="left:'+a+'%;width:'+Math.max(b-a,0.6)+'%"></span><span class="v" style="'+(b>78&&p[1]>0?'right:'+(100-a)+'%;':vpos)+'">'+esc((lab?lab+' · ':'')+p[3])+'</span></div></div>';
+  }).join('');
+  $$('#race .r').forEach(function(r,i){var p=P[i];hover(r,'<b>'+esc(p[0])+'</b><br>'+esc(p[3])+(p[2]==='wait'?'':' UTC'))});
+  $('#raceAxis').innerHTML=[-6,-3,0,3,6,9].map(function(h){return '<span style="left:'+x(h)+'%">'+(h>0?'+':'')+h+' h</span>'}).join('');
+})();
+
+/* news: PHP security inbox */
+(function(){
+  var I=[['Invalid, duplicate or not reproducible','100+',100],['Real enough for a CVE','15',15]],B=$('#inboxBars');
+  I.forEach(function(i){var r=document.createElement('div');r.className='brow wide';
+    r.innerHTML='<span class="lab">'+i[0]+'</span><div class="track"><div class="fill series" style="width:'+(i[2]/100*78)+'%"></div><span class="val" style="left:'+(i[2]/100*78)+'%">'+i[1]+'</span></div>';B.appendChild(r)});
+})();
+
+/* news: compared */
+(function(){
+  function sl(h){return (h<0?-1:1)*Math.log10(1+Math.abs(h))}
+  var M={
+   when:{title:'PHP2Shell was attacked before its fix, like the zero-days, and after its leak',sub:'Hours from the public fix or disclosure to the first reported attack. Left of the line: before. Scale compressed (logarithmic).',
+     note:'Citrix Bleed, MOVEit and Log4Shell were in use before anyone published them. PHP2Shell\'s first public report of attacks (07:43 UTC) came after the 20 October leak and about six hours before the fix; Cloudflare says it was seeing attack traffic when its rules went on at 03:02. regreSSHion: no attacks reported.',
+     rows:[['Citrix Bleed','2023',-1008,'~6 weeks before'],['Log4Shell','2021',-216,'9 days before'],['MOVEit','2023',-96,'4+ days before'],['PHP2Shell','2026',-6.3,'~6 h before the fix',1],['Shellshock','2014',1,'within 1 h'],['Heartbleed','2014',21.5,'21 h after'],['PHP-CGI 2024-4577','2024',24,'under 24 h'],['PHP-FPM 2019-11043','2019',96,'within 4 days'],['EternalBlue','2017',1416,'59 days (WannaCry)'],['regreSSHion','2024',null,'none reported']]},
+   age:{title:'Only Shellshock hid longer',sub:'Years between the code shipping and the bug going public.',
+     note:'PHP2Shell: the oldest affected code is PHP 5.4.0 (March 2012). PHP-CGI 2024-4577 bypassed a 2012 fix, so its age is counted from then. No age is published for MOVEit, Citrix Bleed or the 2019 PHP-FPM bug.',
+     rows:[['Shellshock','1989',25,'25 years'],['PHP2Shell','2012',14.6,'14 years',1],['PHP-CGI 2024-4577','2012',12,'~12 years'],['Log4Shell','2013',8,'8 years'],['regreSSHion','2020',3.7,'3.7 years'],['Heartbleed','2012',2.3,'2.3 years']]},
+   hosts:{title:'More exposed servers than any bug here except, by one count, regreSSHion',sub:'Exposed or possibly vulnerable hosts near disclosure; the line shows the range of published counts. Scale logarithmic.',
+     note:'Counts measure different things: PHP2Shell\'s 2.6 million is internet-facing PHP hosts (VulnCheck), with published counts from 1.3 to 5.1 million. Log4Shell had no host count; estimates ran to hundreds of millions of devices. Citrix Bleed\'s count is a week after the patch.',
+     rows:[['regreSSHion','OpenSSH',700e3,'0.7–14 M',0,14e6],['PHP2Shell','PHP',2.6e6,'2.6 M',1,5.1e6,1.3e6],['EternalBlue','Windows SMB',1e6,'1–2.3 M',0,2.3e6],['Heartbleed','OpenSSL',5e5,'~500 k'],['PHP-CGI 2024-4577','PHP on Windows',458800,'~459 k'],['Citrix Bleed','Citrix',5000,'~5 k'],['MOVEit','MOVEit',2500,'~2.5 k']]}
+  };
+  function draw(m){
+    var d=M[m],B=$('#cmpBars');$('#cmpTitle').textContent=d.title;$('#cmpSub').textContent=d.sub;$('#cmpNote').textContent=d.note;
+    var h='';
+    if(m==='when'){var mx=sl(1500);
+      d.rows.forEach(function(r){var mid=50,v=r[2];var w=v===null?0:Math.abs(sl(v))/mx*48;var left=v<0?mid-w:mid;
+        h+='<div class="r'+(r[4]?' me':'')+'"><span class="lab">'+esc(r[0])+'<small>'+r[1]+'</small></span><div class="lane"><span class="mid" style="left:50%"></span>'+(v===null?'':'<span class="bar'+(v<0&&!r[4]?' neg':'')+'" style="left:'+left+'%;width:'+Math.max(w,0.8)+'%"></span>')+'<span class="v" style="'+(v!==null&&v<0?'right:'+(100-left)+'%':(v>0&&mid+w>64?'right:'+(100-mid+1)+'%':'left:'+(v===null?50:mid+w)+'%'))+'">'+esc(r[3])+'</span></div></div>'});
+    } else if(m==='age'){
+      d.rows.forEach(function(r){var w=r[2]/25*72;h+='<div class="r'+(r[4]?' me':'')+'"><span class="lab">'+esc(r[0])+'<small>since '+r[1]+'</small></span><div class="lane"><span class="bar" style="left:0;width:'+w+'%"></span><span class="v" style="left:'+w+'%">'+esc(r[3])+'</span></div></div>'});
+    } else {
+      var a=3,b=7.3;function lx(n){return (Math.log10(n)-a)/(b-a)*72}
+      d.rows.forEach(function(r){var w=lx(r[2]);h+='<div class="r'+(r[4]?' me':'')+'"><span class="lab">'+esc(r[0])+'<small>'+esc(r[1])+'</small></span><div class="lane"><span class="bar" style="left:0;width:'+w+'%"></span>'+(r[5]?'<span class="whisk" style="left:'+lx(r[6]||r[2])+'%;width:'+(lx(r[5])-lx(r[6]||r[2]))+'%"></span>':'')+'<span class="v" style="left:'+(r[5]?lx(r[5]):w)+'%">'+esc(r[3])+'</span></div></div>'});
+    }
+    B.innerHTML=h;
+    $$('#cmp .tabs button').forEach(function(x){x.setAttribute('aria-selected',x.dataset.m===m?'true':'false')});
+  }
+  $$('#cmp .tabs button').forEach(function(x){x.addEventListener('click',function(){draw(x.dataset.m)})});
+  draw('when');
+})();
+
 
 /* fix planner */
 function C(lines){return '<div class="cmd">'+lines.map(function(l){return l.charAt(0)==='#'?'<span class="c">'+esc(l)+'</span>':esc(l)}).join('\n')+'<button class="copy">Copy</button></div>'}
