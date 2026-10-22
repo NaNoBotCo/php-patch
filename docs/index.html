@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The PHP Patch</title>
-<meta name="description" content="PHP2Shell, 21 October 2026: the bug details leaked a day early, and governments, parliaments, ports, banks and universities switched themselves off. The day in order, what the bug is, who is exposed, how to fix it.">
+<meta name="description" content="PHP2Shell, 21 October 2026: the bug numbers leaked a day early, attacks had begun days before, and governments, parliaments, ports, banks and universities switched themselves off. The day in order, what the bug is, who is exposed, how to fix it.">
 <link rel="canonical" href="https://nanobotco.github.io/php-patch/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The PHP Patch: the Wednesday everyone pulled the plug">
-<meta property="og:description" content="The bug leaked a day early. Parliaments, ports, ministries and Wikipedia's tools went dark. Then GitLab, LiteLLM, Railway, and a certificate authority whose key was 4.">
+<meta property="og:description" content="The bug numbers leaked a day early. Parliaments, ports, ministries and Wikipedia's tools went dark. Then GitLab, LiteLLM, Railway, and a certificate authority whose key was 4.">
 <meta property="og:url" content="https://nanobotco.github.io/php-patch/">
 <meta property="og:image" content="https://nanobotco.github.io/php-patch/card.png">
 <meta property="og:image:width" content="1200">
@@ -403,7 +403,7 @@ h1 em.out{color:var(--hot)}
     <div class="hero-grid">
       <div>
         <h1>PHP broke. <em class="out">Everyone pulled the plug.</em></h1>
-        <p class="lede">PHP runs about 7 in 10 websites. On Tuesday 20 October the details of two bugs that let a stranger take over a PHP server leaked, a day before the fix. Agencies said patch, or switch off. Japan's Prime Minister asked the country the same at 9:55 pm, and parliaments, ports, ministries, banks, universities and parts of Wikipedia went dark. <a href="#wednesday">The day, in order.</a></p>
+        <p class="lede">PHP runs about 7 in 10 websites. On Tuesday 20 October the numbers of two bugs that let a stranger take over a PHP server leaked, a day before the fix, and a video of the attack followed by mistake. Agencies said patch, or switch off. Japan's Prime Minister asked the country the same at 9:55 pm, and parliaments, ports, ministries, banks, universities and parts of Wikipedia went dark. <a href="#wednesday">The day, in order.</a></p>
         <div class="checker">
           <label for="ver">Is your PHP fixed? Paste <code>php -v</code> or type a version.</label>
           <div class="row">
@@ -428,7 +428,7 @@ h1 em.out{color:var(--hot)}
     </div>
     <div class="stats">
       <div class="stat"><b>23 h</b><span>the bug numbers leaked before the fix</span></div>
-      <div class="stat"><b>6 h 17 m</b><span>attacks seen before the fix shipped</span></div>
+      <div class="stat"><b>4 days</b><span>from the first attempt Amazon caught, 17 Oct, to the fix</span></div>
       <div class="stat"><b>211</b><span>Japanese organisations that announced shutdowns or checks by 1 am the next day</span></div>
       <div class="stat"><b>1.57 M</b><span>internet-facing hosts showing an unpatched PHP version (Censys, via SecurityWeek)</span></div>
     </div>
@@ -457,8 +457,9 @@ h1 em.out{color:var(--hot)}
       <ol class="tale" id="tale">
         <li><span class="t">Tue 15:00</span><p>It starts a day early. The two bug numbers turn up on forums and Hacker News, 23 hours before PHP is ready. <span class="src"><a href="https://www.theregister.com/security/2026/10/22/php-blames-supply-chain-security-biz-chainguard-for-putting-huge-chunks-of-the-web-at-risk/5304611">Register</a></span></p></li>
         <li><span class="t">Tue 17:00</span><p><i class="and">and</i> one of the finders posts a video of the attack by mistake, deletes it, and the copies spread. <span class="src"><a href="https://www.theregister.com/security/2026/10/22/php-blames-supply-chain-security-biz-chainguard-for-putting-huge-chunks-of-the-web-at-risk/5304611">Register</a></span></p></li>
+        <li><span class="t">02:00</span><p><i class="and">and</i> attack code is going round; Amazon's decoy servers catch attempts, and one from as early as Saturday 17 October, <span class="src"><a href="https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/">Amazon</a></span></p></li>
         <li><span class="t">07:41</span><p><i class="and">and</i> a container company ships fixed PHP six hours before PHP does, which PHP says handed attackers the answer key. <span class="src"><a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a></span></p></li>
-        <li><span class="t">07:43</span><p><i class="and">and</i> Cloudflare sees the first attacks. <span class="src"><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a></span></p></li>
+        <li><span class="t">07:43</span><p><i class="and">and</i> Cloudflare reports attacks too. <span class="src"><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a></span></p></li>
         <li data-k="NCSC-NL"><span class="t">09:10</span><p><i class="and">and</i> the Dutch cybersecurity agency takes its own website offline, <span class="src"><a href="https://nos.nl/artikel/2636055-websites-van-overheid-en-in-onderwijs-offline-vanwege-lek-risico-op-hacks">NOS</a></span></p></li>
         <li data-k="Dutch parliament"><span class="t">Wed</span><p><i class="and">and</i> the Dutch parliament goes offline, <span class="src"><a href="https://nltimes.nl/2026/10/22/important-dutch-websites-still-offline-php-issues">NL Times</a></span></p></li>
         <li data-k="Port of Rotterdam"><span class="t">Wed</span><p><i class="and">and</i> the Port of Rotterdam goes offline, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
@@ -557,7 +558,7 @@ h1 em.out{color:var(--hot)}
 <section id="timeline">
   <div class="wrap">
     <div class="eyebrow">Timeline</div>
-    <h2>Fourteen years hidden, ten weeks to fix, six hours of attacks before the patch</h2>
+    <h2>Fourteen years hidden, ten weeks to fix, attacks four days before the patch</h2>
     <p>The weakness was noticed more than once and left alone because nobody showed it could be used. In 2026 researchers working with AI models showed it could. Wiz credits frontier AI models with lowering the cost of turning the bug into an attack.</p>
     <div class="tabs" role="tablist" aria-label="Timeline scale">
       <button role="tab" aria-selected="false" data-view="years">22 years</button>
@@ -872,6 +873,7 @@ h1 em.out{color:var(--hot)}
       <li><a href="https://w3techs.com/technologies/details/pl-php">W3Techs</a>: PHP share of websites and version split (<a href="https://w3techs.com/technologies/details/pl-php/8">8.x</a>, <a href="https://w3techs.com/technologies/details/pl-php/7">7.x</a>), 21 Oct 2026.</li>
       <li><a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a>, 21 Oct: timeline, 2024 audit, inbox figures, embargo, funding.</li>
       <li><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a>, <a href="https://patchstack.com/articles/php-major-vulnerability-alert-10-2026/">Patchstack</a>, <a href="https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619">Hadrian</a>, <a href="https://watchtowr.com/intelligence/php-remote-code-execution-php2shell/">watchTowr</a>, <a href="https://www.vulncheck.com/blog/php2shell-vulnerabilities">VulnCheck</a>, <a href="https://www.huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities">Huntress</a>, <a href="https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/">SecurityWeek</a>: attack reports and host counts.</li>
+      <li><a href="https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/">Amazon</a>, 21 Oct: first attempt on its decoy servers 17 Oct, more from 02:00 UTC on 21 Oct.</li>
       <li><a href="https://www.ox.security/blog/cve-2026-109618-cve-2026-109619-two-vulnerabilities-allow-unauthenticated-rce-in-php/">OX Security</a>: hosts showing a patched version. <a href="https://www.precursorsecurity.com/blog/php2shell-critical-php-rce-vulnerabilities">Precursor</a> live blog: exploit repos.</li>
       <li><a href="https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching">CISA</a>, <a href="https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php">UK NCSC</a>, <a href="https://cert.europa.eu/publications/security-advisories/2026-018/">CERT-EU</a>, <a href="https://www.csa.gov.sg/alerts-and-advisories/alerts/al-2026-151/">CSA Singapore</a>: advisories.</li>
       <li><a href="https://live.euronext.com/en/financial-news/factbox-websites-taken-offline-over-php-risks">Reuters factbox via Euronext</a>, <a href="https://www.insurancebusinessmag.com/uk/news/cyber/uk-councils-and-met-police-among-sites-pulled-offline-after-ncsc-alert-594424.aspx">Insurance Business</a>, <a href="https://www.techzine.eu/blogs/security/145168/php-shuts-the-internet-why-php2shell-affects-every-company/">Techzine</a>, <a href="https://therecord.media/php-script-vulnerabilities-warnings">The Record</a>, <a href="https://piyolog.hatenadiary.jp/entry/2026/10/21/174516">piyolog</a>, <a href="https://www.itmedia.co.jp/news/article/2610/21/2000002472/">ITmedia</a>, <a href="https://diff.wikimedia.org/2026/10/21/impact-of-php-vulnerabilities-on-wikimedia-cloud-services/">Wikimedia</a>: sites taken offline.</li>
@@ -1091,6 +1093,7 @@ var TL={
   {w:'1 Aug',t:'Calif starts',d:'Calif begins finding ways in, as part of OpenAI\'s Patch the Planet project.',x:Date.UTC(2026,7,1)},
   {w:'11 Aug',t:'First report to PHP',d:'Calif reports the first bug.',x:Date.UTC(2026,7,11)},
   {w:'24 Aug',t:'Second team reports',d:'Wiz Research reports the bugs independently.',x:Date.UTC(2026,7,24)},
+  {w:'17 Oct',t:'First attempt',d:'Amazon\'s decoy servers catch an attack attempt, four days before the fix.',c:'hot',x:Date.UTC(2026,9,17)},
   {w:'20 Oct',t:'Leak',d:'Details appear on Hacker News; watchTowr confirms the flaw. CERT-EU issues an advisory.',c:'hot',x:Date.UTC(2026,9,20)},
   {w:'21 Oct',t:'Fixed',d:'PHP releases the patch at 14:00 UTC.',c:'fix',x:Date.UTC(2026,9,21)}
  ],
