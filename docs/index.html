@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The PHP Patch</title>
-<meta name="description" content="PHP2Shell, the PHP patch of 21 October 2026: what it means, who is exposed, and what it takes to fix a server. Version checker, fix planner and charts.">
+<meta name="description" content="PHP2Shell, 21 October 2026: the bug numbers leaked a day early, attacks had begun days before, and governments, parliaments, ports, banks and universities switched themselves off. The day in order, what the bug is, who is exposed, how to fix it.">
 <link rel="canonical" href="https://nanobotco.github.io/php-patch/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The PHP Patch: update PHP today">
-<meta property="og:description" content="PHP2Shell, 21 October 2026. What it means, who is exposed, what it takes to fix. Check your PHP version in one paste.">
+<meta property="og:title" content="The PHP Patch: the Wednesday everyone pulled the plug">
+<meta property="og:description" content="The bug numbers leaked a day early. Parliaments, ports, ministries and Wikipedia's tools went dark. Then GitLab, LiteLLM, Railway, and a certificate authority whose key was 4.">
 <meta property="og:url" content="https://nanobotco.github.io/php-patch/">
 <meta property="og:image" content="https://nanobotco.github.io/php-patch/card.png">
 <meta property="og:image:width" content="1200">
@@ -344,7 +344,55 @@ ol.trends li{margin-bottom:10px}
 footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;color:var(--muted);font-size:14px}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(30px);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;transition:all .2s;z-index:60;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%)}
-@media print{nav.top,.band,.share{display:none}}
+/* wednesday: the tale */
+h1 em.out{color:var(--hot)}
+.tale-grid{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start}
+@media (max-width:820px){.tale-grid{grid-template-columns:1fr;gap:0}}
+.city{position:sticky;top:60px;background:#0d0b1a;color:#f0efec;border-radius:18px;padding:14px;border:1px solid #2c2a40;box-shadow:0 18px 40px -26px rgba(0,0,0,.6)}
+.city .win{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.city .win i{aspect-ratio:3/4;border-radius:3px;background:#fab219;box-shadow:0 0 10px rgba(250,178,25,.55);transition:background .6s ease, box-shadow .6s ease;display:block}
+.city .win i.off{background:#221e3d;box-shadow:none}
+.city .count{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:12px}
+.city .count b{font-size:34px;line-height:1;letter-spacing:-.02em}
+.city .count span{font-size:13px;color:#c3c2b7;text-align:right}
+.city .last{font-size:14px;color:#fab219;min-height:21px;margin-top:6px;font-weight:600}
+@media (max-width:820px){
+  .city{top:50px;z-index:15;padding:10px 12px;border-radius:14px;margin-bottom:14px;order:-1}
+  .city .win{grid-template-columns:repeat(17,1fr);gap:4px}
+  .city .count{margin-top:8px}.city .count b{font-size:26px}
+  .city .last{margin-top:2px;font-size:13px}
+}
+.tale{list-style:none;margin:0;padding:0}
+.tale li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line);transition:opacity .5s ease, transform .5s ease}
+.tale li:first-child{border-top:0}
+.js .tale li{opacity:.28;transform:translateY(6px)}
+.js .tale li.lit{opacity:1;transform:none}
+.tale .t{font:600 13px ui-monospace,Menlo,monospace;color:var(--muted);padding-top:4px}
+.tale p{margin:0;font-size:19px;line-height:1.5}
+.tale p i.and{font-style:italic;font-weight:800;color:var(--hot)}
+.tale .src{font-size:13px;white-space:nowrap;margin-left:4px}
+.tale .src a{color:var(--muted)}
+.tale li.big p{font-size:22px;font-weight:700}
+.coda{margin:22px 0 0;padding:16px 18px;border-left:6px solid var(--good);background:var(--surface);border-radius:12px;max-width:none}
+.coda b{display:block;font-size:20px;margin-bottom:4px}
+.just{font-size:clamp(34px,7vw,72px);font-weight:800;letter-spacing:-.025em;line-height:1.02;margin:56px 0 6px;max-width:16ch}
+.just em{font-style:normal;color:var(--hot)}
+.tale.week li{grid-template-columns:62px 1fr}
+.tale.week p{font-size:18px}
+.tale.week p b{font-weight:800}
+.key4{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;margin:28px 0 0;padding:20px;border-radius:20px;background:#0d0b1a;color:#f0efec;border:1px solid #2c2a40}
+@media (max-width:640px){.key4{grid-template-columns:1fr}}
+.key4 .long{font:13px/1.5 ui-monospace,Menlo,monospace;color:#8e89b8;word-break:break-all}
+.key4 .long b{display:block;font:600 13px system-ui,sans-serif;color:#c3c2b7;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+.key4 .four{text-align:center}
+.key4 .four b{display:block;font-size:clamp(120px,22vw,200px);line-height:.9;font-weight:900;color:#ff4f7b;letter-spacing:-.04em}
+.key4 .four span{font:600 13px system-ui,sans-serif;color:#c3c2b7;letter-spacing:.04em;text-transform:uppercase}
+.key4 p{grid-column:1/-1;margin:0;color:#c3c2b7;font-size:16px;max-width:none}
+.key4 p a{color:#b9adff}
+.wed-end{font-size:clamp(24px,4vw,34px);font-weight:800;margin:34px 0 4px;letter-spacing:-.01em}
+.js .tale li{will-change:opacity}
+@media (prefers-reduced-motion: reduce){.js .tale li{opacity:1;transform:none;transition:none}.city .win i{transition:none}}
+@media print{nav.top,.band,.share{display:none}.js .tale li{opacity:1;transform:none}.city{position:static}}
 </style>
 </head>
 <body>
@@ -354,8 +402,8 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
     <div class="kicker"><b>PHP2Shell</b> · CVE-2026-109618 + CVE-2026-109619 · fixed 21 Oct 2026</div>
     <div class="hero-grid">
       <div>
-        <h1>The PHP patch is out. <em>Update today.</em></h1>
-        <p class="lede">PHP runs about 7 in 10 websites. Two bugs inside PHP itself let a stranger take over a web server without logging in. PHP shipped the fix at 14:00 UTC on 21 October; attacks were seen about six hours earlier.</p>
+        <h1>PHP broke. <em class="out">Everyone pulled the plug.</em></h1>
+        <p class="lede">PHP runs about 7 in 10 websites. On Tuesday 20 October the numbers of two bugs that let a stranger take over a PHP server leaked, a day before the fix, and a video of the attack followed by mistake. Agencies said patch, or switch off. Japan's Prime Minister asked the country the same at 9:55 pm, and parliaments, ports, ministries, banks, universities and parts of Wikipedia went dark. <a href="#wednesday">The day, in order.</a></p>
         <div class="checker">
           <label for="ver">Is your PHP fixed? Paste <code>php -v</code> or type a version.</label>
           <div class="row">
@@ -379,16 +427,17 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
       </div>
     </div>
     <div class="stats">
-      <div class="stat"><b>9.2<small> /10</small></b><span>severity of each bug (CVSS v4)</span></div>
-      <div class="stat"><b>14 yrs</b><span>age of the oldest affected code, PHP 5.4.0 (2012)</span></div>
-      <div class="stat"><b>6 h 17 m</b><span>attacks seen before the fix shipped</span></div>
-      <div class="stat"><b>69%</b><span>of websites with a known server language run PHP</span></div>
+      <div class="stat"><b>23 h</b><span>the bug numbers leaked before the fix</span></div>
+      <div class="stat"><b>4 days</b><span>from the first attempt Amazon caught, 17 Oct, to the fix</span></div>
+      <div class="stat"><b>211</b><span>Japanese organisations that announced shutdowns or checks by 1 am the next day</span></div>
+      <div class="stat"><b>1.57 M</b><span>internet-facing hosts showing an unpatched PHP version (Censys, via SecurityWeek)</span></div>
     </div>
   </div>
 </header>
 
 <nav class="top" aria-label="Sections">
   <div class="wrap">
+    <a href="#wednesday">Wednesday</a>
     <a href="#meaning">Meaning</a>
     <a href="#timeline">Timeline</a>
     <a href="#news">News</a>
@@ -399,6 +448,73 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
 </nav>
 
 <main>
+<section id="wednesday">
+  <div class="wrap">
+    <div class="eyebrow">Wednesday</div>
+    <h2>And then everyone took their system offline</h2>
+    <p>Wednesday 21 October 2026, in order. Times are UTC; Bangkok is seven hours ahead.</p>
+    <div class="tale-grid">
+      <ol class="tale" id="tale">
+        <li><span class="t">Tue 15:00</span><p>It starts a day early. The two bug numbers turn up on forums and Hacker News, 23 hours before PHP is ready. <span class="src"><a href="https://www.theregister.com/security/2026/10/22/php-blames-supply-chain-security-biz-chainguard-for-putting-huge-chunks-of-the-web-at-risk/5304611">Register</a></span></p></li>
+        <li><span class="t">Tue 17:00</span><p><i class="and">and</i> one of the finders posts a video of the attack by mistake, deletes it, and the copies spread. <span class="src"><a href="https://www.theregister.com/security/2026/10/22/php-blames-supply-chain-security-biz-chainguard-for-putting-huge-chunks-of-the-web-at-risk/5304611">Register</a></span></p></li>
+        <li><span class="t">02:00</span><p><i class="and">and</i> attack code is going round; Amazon's decoy servers catch attempts, and one from as early as Saturday 17 October, <span class="src"><a href="https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/">Amazon</a></span></p></li>
+        <li><span class="t">07:41</span><p><i class="and">and</i> a container company ships fixed PHP six hours before PHP does, which PHP says handed attackers the answer key. <span class="src"><a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a></span></p></li>
+        <li><span class="t">07:43</span><p><i class="and">and</i> Cloudflare reports attacks too. <span class="src"><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a></span></p></li>
+        <li data-k="NCSC-NL"><span class="t">09:10</span><p><i class="and">and</i> the Dutch cybersecurity agency takes its own website offline, <span class="src"><a href="https://nos.nl/artikel/2636055-websites-van-overheid-en-in-onderwijs-offline-vanwege-lek-risico-op-hacks">NOS</a></span></p></li>
+        <li data-k="Dutch parliament"><span class="t">Wed</span><p><i class="and">and</i> the Dutch parliament goes offline, <span class="src"><a href="https://nltimes.nl/2026/10/22/important-dutch-websites-still-offline-php-issues">NL Times</a></span></p></li>
+        <li data-k="Port of Rotterdam"><span class="t">Wed</span><p><i class="and">and</i> the Port of Rotterdam goes offline, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li data-k="Uni Wien webmail|Moodle|u:cloud"><span class="t">11:00</span><p><i class="and">and</i> the University of Vienna switches off its webmail, its Moodle and its cloud, "a purely precautionary measure", <span class="src"><a href="https://www.meinbezirk.at/wien/c-lokales/plattformen-wegen-kritischer-sicherheitsluecken-offline_a8969628">MeinBezirk</a></span></p></li>
+        <li data-k="Finland's government sites"><span class="t">Wed</span><p><i class="and">and</i> Finland shuts its government web services, then finds no attempts on them, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li data-k="French prefectures"><span class="t">Wed</span><p><i class="and">and</i> France's Interior Ministry switches off the prefecture sites, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li data-k="German federal sites|Belgian foreign ministry"><span class="t">Wed</span><p><i class="and">and</i> Germany's federal IT service takes federal sites down, and Belgium's foreign ministry does the same, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li class="big"><span class="t">12:55</span><p><i class="and">and</i> the Prime Minister of Japan, Sanae Takaichi, posts at 9:55 pm Tokyo time, 5:55 am in California: patch tonight, and if you can't, consider stopping your website. <span class="src"><a href="https://internet.watch.impress.co.jp/docs/news/2150203.html">INTERNET Watch</a></span></p></li>
+        <li><span class="t">14:00</span><p><i class="and">and</i> PHP ships the fix. <span class="src"><a href="https://www.php.net/">php.net</a></span></p></li>
+        <li><span class="t">15:20</span><p><i class="and">and</i> CERT-EU tells EU bodies to cut internet-facing systems off until the fix is in and checked, <span class="src"><a href="https://cert.europa.eu/publications/security-advisories/2026-018/">CERT-EU</a></span></p></li>
+        <li><span class="t">Wed</span><p><i class="and">and</i> the NSA says take sites offline if they can't be updated, the UK's NCSC says consider it, and CISA says patch now, <span class="src"><a href="https://www.nbcnews.com/tech/security/critical-vulnerabilities-php-update-systems-rcna604751">NBC</a> · <a href="https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php">NCSC</a></span></p></li>
+        <li data-k="Aula|Copenhagen|DMI weather"><span class="t">Wed pm</span><p><i class="and">and</i> Denmark's school platform goes dark, with Copenhagen's city sites and the weather service, <span class="src"><a href="https://cphpost.dk/2026-10-22/news/round-up/security-flaw-in-widely-used-software-forces-danish-websites-offline/">CPH Post</a></span></p></li>
+        <li data-k="Toolforge|Cloud VPS|Phabricator"><span class="t">Wed</span><p><i class="and">and</i> parts of Wikipedia go down: the tools, the cloud and the bug tracker, until they can be patched, <span class="src"><a href="https://diff.wikimedia.org/2026/10/21/impact-of-php-vulnerabilities-on-wikimedia-cloud-services/">Wikimedia</a></span></p></li>
+        <li data-k="Internet Archive"><span class="t">Wed</span><p><i class="and">and</i> the Internet Archive goes down for emergency maintenance and security patches, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li data-k="Something Awful"><span class="t">Wed</span><p><i class="and">and</i> Something Awful shuts its forums, and 4chan goes read-only, <span class="src"><a href="https://tech.yahoo.com/cybersecurity/articles/php-vulnerability-websites-services-affected-183230666.html">Mashable</a></span></p></li>
+        <li data-k="BBC portals|Orange"><span class="t">Wed</span><p><i class="and">and</i> the BBC takes some portals down, and Orange suspends PHP services at several of its companies, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li data-k="Nomura|MUFG|ANA|JR East|Ministry of Finance|Meteorological Agency|National Tax Agency|niconico|pixiv"><span class="t">16:00</span><p><i class="and">and</i> in Japan: Nomura, MUFG, ANA, JR East, the Ministry of Finance, the Meteorological Agency, the National Tax Agency, niconico and pixiv. By 1 am in Tokyo a public tally counts 211 organisations that announced shutdowns or checks, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a> · <a href="https://internet.watch.impress.co.jp/docs/news/2150203.html">INTERNET Watch</a></span></p></li>
+        <li data-k="Czech government"><span class="t">17:00</span><p><i class="and">and</i> the Czech government's website goes offline on its cyber watchdog's advice. <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
+        <li><span class="t">Wed</span><p>Asana and GOG went down that day too, and people blamed PHP. Neither company said so. <span class="src"><a href="https://tech.yahoo.com/cybersecurity/articles/php-vulnerability-websites-services-affected-183230666.html">Mashable</a></span></p></li>
+      </ol>
+      <aside class="city" aria-label="Lights going out">
+        <div class="win" id="cityWin" aria-hidden="true"></div>
+        <div class="count"><b id="cityN">0</b><span>named in this list<br>gone dark</span></div>
+        <div class="last" id="cityLast" aria-live="off"></div>
+      </aside>
+    </div>
+    <div class="coda"><b>All of it went dark by choice.</b>By Thursday no one had published a confirmed break-in through the bug. One Japanese company, VALTEC, blamed PHP for its breach, then said hours later the hole was in its own service; it had been patching PHP at the same time. <span class="src small"><a href="https://internet.watch.impress.co.jp/docs/news/2150396.html">INTERNET Watch</a></span></div>
+
+    <p class="just">And that's <em>just PHP.</em></p>
+    <p>The same week, everywhere else:</p>
+    <ol class="tale week" id="week">
+      <li><span class="t">21 Oct</span><p><b>GitLab</b> fixes a bug rated 10 out of 10, the top of the scale, that lets a stranger run code on the server. It is in every version since 7.0, from 2014: twelve years of self-hosted GitLab. <span class="src"><a href="https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-5-1-released/">GitLab</a></span></p></li>
+      <li><span class="t">21 Oct</span><p><b>LiteLLM</b>, a popular library for calling AI models, ships version 1.107.0 with a password stealer inside, in every wheel and in the Docker image tagged latest. It runs every time Python starts after install; nobody has to import it. Second time this year. <span class="src"><a href="https://docs.litellm.ai/blog/security-incident-oct-21-2026">LiteLLM</a></span></p></li>
+      <li><span class="t">21 Oct</span><p><b>Railway</b>, a hosting platform, pauses deployments in every region after someone reaches the systems that store customers' secrets, and asks everyone to change every secret stored there. <span class="src"><a href="https://blog.railway.com/p/security-disclosure-wednesday-october-21st">Railway</a></span></p></li>
+      <li><span class="t">21 Oct</span><p><b>Node.js</b> patches a bug that runs a stranger's code and three ways around its TLS checks, the checks that a server is who it says. <span class="src"><a href="https://nodejs.org/en/blog/vulnerability/october-2026-security-releases">Node.js</a></span></p></li>
+      <li><span class="t">21 Oct</span><p><b>State Bank of India</b>, the country's biggest bank, files an "Incident involving Data Loss" with the stock exchanges: 3,897 customers' records found for sale. <span class="src"><a href="https://internetfreedom.in/sbi-told-investors-its-data-breach-doesnt-matter-what-about-the-3-897-customers-it-affected/">IFF</a></span></p></li>
+      <li><span class="t">20 Oct</span><p><b>CISA</b> adds four Plex Media Server bugs to its list of bugs under attack. <span class="src"><a href="https://www.cisa.gov/news-events/alerts/2026/10/20/cisa-adds-six-known-exploited-vulnerabilities-catalog">CISA</a></span></p></li>
+      <li><span class="t">20 Oct</span><p><b>SafePay</b> ransomware: US, UK and German police count at least 600 victims across critical infrastructure. <span class="src"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-293a">CISA</a></span></p></li>
+      <li><span class="t">20 Oct</span><p><b>Tor</b>: a researcher shows 333 exit relays, about one in ten, steering SSH logins to servers built to catch passwords. <span class="src"><a href="https://kaba.cx/posts/20261020_Tor/">kaba</a></span></p></li>
+      <li><span class="t">19 Oct</span><p><b>TiDB Cloud</b> says someone walked around inside with stolen credentials from 9 September to 7 October. A group calling itself FulcrumSec claims 10.6 terabytes; the company has not confirmed it. <span class="src"><a href="https://www.pingcap.com/trust-hub/security/security-update-october-2026/">PingCAP</a></span></p></li>
+      <li><span class="t">17 Oct</span><p><b>Zeabur</b>, breached in August and again in October, announces it is shutting down. The whole company, by 31 December. <span class="src"><a href="https://zeabur.com/blogs/zeabur-is-shutting-down">Zeabur</a></span></p></li>
+      <li><span class="t">9 Oct</span><p><b>Japan</b>: after breaches at more than 20 big companies, the ruling party's cybersecurity chief calls it "an emergency in cyberspace". The government issues an advisory; nobody declares a formal emergency. <span class="src"><a href="https://thenextweb.com/news/japan-cyberattacks-warning-data-leaks">TNW</a></span></p></li>
+    </ol>
+
+    <div class="key4">
+      <div class="long"><b>A private key should look like this</b><span id="longKey"></span></div>
+      <div class="four"><b>4</b><span>eMudhra's looked like this</span></div>
+      <p>eMudhra is a certificate authority: its job is proving a website is who it says it is, and it says it has issued over 60 million certificates. Eight of its signing keys should each have been a random number about 116 digits long. All eight were under 256. One was 4; others were 66 and 237. Browsers stopped trusting them within three days, and about 30,000 customer certificates need replacing. <span class="src"><a href="https://blog.mozilla.org/security/2026/10/20/protecting-firefox-users-following-the-compromise-of-emudhra-intermediate-certificates/">Mozilla</a> · <a href="https://www.theregister.com/security/2026/10/20/indian-certification-authority-emudhras-private-keys-compromised-one-of-them-was-the-number-4/5304312">Register</a></span></p>
+    </div>
+
+    <p class="wed-end">“Anyway, it's Wednesday.”</p>
+    <p class="small muted">— <a href="https://x.com/fiveoutofnine/status/2113045722744717360">@fiveoutofnine</a>, who told the whole day in one breath at 23:12 UTC and was read 2.8 million times by Thursday. This page checks each line against its own source and corrects four: the Prime Minister posted at 9:55 pm Tokyo time, 5:55 am in California, and no source gives the 48.8 million; CISA said patch, not unplug; Asana and GOG were never tied to PHP; and Japan's "emergency" was a politician's phrase, not a declaration.</p>
+  </div>
+</section>
+
 <section id="meaning">
   <div class="wrap">
     <div class="eyebrow">Meaning</div>
@@ -442,7 +558,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
 <section id="timeline">
   <div class="wrap">
     <div class="eyebrow">Timeline</div>
-    <h2>Fourteen years hidden, ten weeks to fix, six hours of attacks before the patch</h2>
+    <h2>Fourteen years hidden, ten weeks to fix, attacks four days before the patch</h2>
     <p>The weakness was noticed more than once and left alone because nobody showed it could be used. In 2026 researchers working with AI models showed it could. Wiz credits frontier AI models with lowering the cost of turning the bug into an attack.</p>
     <div class="tabs" role="tablist" aria-label="Timeline scale">
       <button role="tab" aria-selected="false" data-view="years">22 years</button>
@@ -478,7 +594,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
     <p class="small muted">The one intrusion attempt logged in detail, on VulnCheck's decoy servers at 17:22 UTC, tried to plant a web shell (a hidden control page) and failed. No vendor had published counts of blocked requests, compromised sites or attacker countries.</p>
 
     <h3>Who switched off</h3>
-    <p>CISA, the NSA and the UK NCSC told organisations that could not patch to take PHP systems offline. Many did, most without having seen an attack.</p>
+    <p>The NSA advised taking PHP sites offline if they could not be updated, the UK NCSC said to consider it, and CERT-EU said to isolate them; CISA said to patch now. Many went offline, most without having seen an attack.</p>
     <div class="offline" id="offline"></div>
 
     <h3>The patch race</h3>
@@ -757,6 +873,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);margin-top:40px;colo
       <li><a href="https://w3techs.com/technologies/details/pl-php">W3Techs</a>: PHP share of websites and version split (<a href="https://w3techs.com/technologies/details/pl-php/8">8.x</a>, <a href="https://w3techs.com/technologies/details/pl-php/7">7.x</a>), 21 Oct 2026.</li>
       <li><a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a>, 21 Oct: timeline, 2024 audit, inbox figures, embargo, funding.</li>
       <li><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a>, <a href="https://patchstack.com/articles/php-major-vulnerability-alert-10-2026/">Patchstack</a>, <a href="https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619">Hadrian</a>, <a href="https://watchtowr.com/intelligence/php-remote-code-execution-php2shell/">watchTowr</a>, <a href="https://www.vulncheck.com/blog/php2shell-vulnerabilities">VulnCheck</a>, <a href="https://www.huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities">Huntress</a>, <a href="https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/">SecurityWeek</a>: attack reports and host counts.</li>
+      <li><a href="https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/">Amazon</a>, 21 Oct: first attempt on its decoy servers 17 Oct, more from 02:00 UTC on 21 Oct.</li>
       <li><a href="https://www.ox.security/blog/cve-2026-109618-cve-2026-109619-two-vulnerabilities-allow-unauthenticated-rce-in-php/">OX Security</a>: hosts showing a patched version. <a href="https://www.precursorsecurity.com/blog/php2shell-critical-php-rce-vulnerabilities">Precursor</a> live blog: exploit repos.</li>
       <li><a href="https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching">CISA</a>, <a href="https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php">UK NCSC</a>, <a href="https://cert.europa.eu/publications/security-advisories/2026-018/">CERT-EU</a>, <a href="https://www.csa.gov.sg/alerts-and-advisories/alerts/al-2026-151/">CSA Singapore</a>: advisories.</li>
       <li><a href="https://live.euronext.com/en/financial-news/factbox-websites-taken-offline-over-php-risks">Reuters factbox via Euronext</a>, <a href="https://www.insurancebusinessmag.com/uk/news/cyber/uk-councils-and-met-police-among-sites-pulled-offline-after-ncsc-alert-594424.aspx">Insurance Business</a>, <a href="https://www.techzine.eu/blogs/security/145168/php-shuts-the-internet-why-php2shell-affects-every-company/">Techzine</a>, <a href="https://therecord.media/php-script-vulnerabilities-warnings">The Record</a>, <a href="https://piyolog.hatenadiary.jp/entry/2026/10/21/174516">piyolog</a>, <a href="https://www.itmedia.co.jp/news/article/2610/21/2000002472/">ITmedia</a>, <a href="https://diff.wikimedia.org/2026/10/21/impact-of-php-vulnerabilities-on-wikimedia-cloud-services/">Wikimedia</a>: sites taken offline.</li>
@@ -976,6 +1093,7 @@ var TL={
   {w:'1 Aug',t:'Calif starts',d:'Calif begins finding ways in, as part of OpenAI\'s Patch the Planet project.',x:Date.UTC(2026,7,1)},
   {w:'11 Aug',t:'First report to PHP',d:'Calif reports the first bug.',x:Date.UTC(2026,7,11)},
   {w:'24 Aug',t:'Second team reports',d:'Wiz Research reports the bugs independently.',x:Date.UTC(2026,7,24)},
+  {w:'17 Oct',t:'First attempt',d:'Amazon\'s decoy servers catch an attack attempt, four days before the fix.',c:'hot',x:Date.UTC(2026,9,17)},
   {w:'20 Oct',t:'Leak',d:'Details appear on Hacker News; watchTowr confirms the flaw. CERT-EU issues an advisory.',c:'hot',x:Date.UTC(2026,9,20)},
   {w:'21 Oct',t:'Fixed',d:'PHP releases the patch at 14:00 UTC.',c:'fix',x:Date.UTC(2026,9,21)}
  ],
@@ -1002,9 +1120,9 @@ function drawTL(view){
     h+='<li><span class="when">'+esc(e.w)+'</span><span class="dot '+(e.c||'')+'"></span><div class="what"><b>'+esc(e.t)+'</b><span>'+esc(e.d)+'</span></div></li>';
   });
   L.innerHTML=h;
-  $$('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.view===view?'true':'false')});
+  $$('#timeline .tabs button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.view===view?'true':'false')});
 }
-$$('.tabs button').forEach(function(b){b.addEventListener('click',function(){drawTL(b.dataset.view)})});
+$$('#timeline .tabs button').forEach(function(b){b.addEventListener('click',function(){drawTL(b.dataset.view)})});
 drawTL('hours');
 /* news: attack reports */
 (function(){
@@ -1053,7 +1171,7 @@ drawTL('hours');
    ['🇩🇰','Denmark','Kombit took municipal services offline, the national school platform among them.'],
    ['🇨🇿','Czechia','The government website went offline at 17:00 GMT on the cyber watchdog\'s advice.'],
    ['🇯🇵','Japan','The Prime Minister spoke about it; Sakura Internet went into emergency maintenance; a tally counted 211 organisations.'],
-   ['🇺🇸','United States','CISA and the NSA advised going offline if unpatchable. BambooHR was down for six hours.'],
+   ['🇺🇸','United States','The NSA advised going offline if unpatchable; CISA said patch now. BambooHR was down for six hours.'],
    ['🇦🇺','Australia','The ACSC issued its highest alert; its own cyber.gov.au was reportedly among affected sites.'],
    ['🌐','Wikimedia','Toolforge, Cloud VPS and Phabricator went down as a precaution; Phabricator was back by evening.']
   ];
@@ -1203,6 +1321,36 @@ drawSteps();
   $('#after').innerHTML=h;
 })();
 
+/* wednesday: lights out */
+(function(){
+  document.documentElement.classList.add('js');
+  var items=$$('#tale li, #week li'),win=$('#cityWin'),N=$('#cityN'),last=$('#cityLast'),names=[];
+  $$('#tale li[data-k]').forEach(function(li){li.dataset.k.split('|').forEach(function(n){names.push(n)})});
+  win.innerHTML=names.map(function(){return '<i></i>'}).join('');
+  var lights=$$('#cityWin i');
+  function paint(){
+    var line=window.innerHeight*0.65,off={},lastName='';
+    items.forEach(function(li){
+      var on=li.getBoundingClientRect().top<line;
+      li.classList.toggle('lit',on);
+      if(on&&li.dataset.k)li.dataset.k.split('|').forEach(function(n){var i=names.indexOf(n);if(i>-1){off[i]=1;lastName=n}});
+    });
+    lights.forEach(function(l,i){l.classList.toggle('off',!!off[i])});
+    N.textContent=Object.keys(off).length;last.textContent=lastName;
+  }
+  var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0;
+  if(still){items.forEach(function(li){li.classList.add('lit')});lights.forEach(function(l){l.classList.add('off')});N.textContent=names.length;last.textContent=''}
+  else{
+    paint();
+    window.addEventListener('scroll',function(){if(!raf)raf=requestAnimationFrame(function(){raf=0;paint()})},{passive:true});
+    window.addEventListener('resize',paint);
+  }
+  /* a P-384 private key is a number up to about 116 digits */
+  var d='',c=window.crypto&&crypto.getRandomValues?crypto.getRandomValues(new Uint8Array(116)):null;
+  for(var k=0;k<116;k++)d+=String(c?c[k]%10:Math.floor(Math.random()*10));
+  $('#longKey').textContent=String(1+(c?c[0]%9:4))+d.slice(1);
+})();
+
 /* fixed picture bands */
 function memPic(id,seed){
   var svg=document.getElementById(id);if(!svg)return;
@@ -1226,7 +1374,7 @@ if('IntersectionObserver' in window){
 }
 
 /* share */
-var U='https://nanobotco.github.io/php-patch/',T='The PHP patch is out. Check your PHP version and fix it today:';
+var U='https://nanobotco.github.io/php-patch/',T='PHP broke, and everyone pulled the plug. The day in order, and a version checker:';
 $('#shLine').href='https://social-plugins.line.me/lineit/share?url='+encodeURIComponent(U);
 $('#shBsky').href='https://bsky.app/intent/compose?text='+encodeURIComponent(T+' '+U);
 $('#shFb').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(U);
