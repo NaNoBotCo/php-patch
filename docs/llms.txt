@@ -6,5 +6,7 @@
 - At risk: every PHP install that serves web requests (PHP-FPM, Apache mod_php, php-cgi, FrankenPHP, LiteSpeed); mod_php highest.
 - Fix: update PHP, restart every PHP process, confirm no process runs the old PHP, then look for signs of a break-in.
 - Share of PHP websites (W3Techs, 21 Oct 2026): about 51% on branches with a fixed release, 34% on branches with a source patch only, 15% with no patch.
+- The day (21 Oct): the CVE numbers leaked 23 hours before the fix. The NSA advised taking unpatchable sites offline, the UK NCSC said consider it, CERT-EU said isolate; CISA said patch. Japan's Prime Minister posted at 21:55 JST. Precautionary shutdowns included NCSC-NL's own site, the Dutch parliament, the Port of Rotterdam, Finnish, French, Danish, Czech, German and Belgian government sites, Wikimedia Cloud Services, the Internet Archive and 211 Japanese organisations by 01:00 JST.
+- Same week: GitLab CVSS 10.0 fix, LiteLLM 1.107.0 supply-chain compromise, Railway deployment pause, Node.js security release, SBI data-loss filing, Plex added to CISA KEV, SafePay advisory, 333 malicious Tor exits, TiDB Cloud and Zeabur breaches, eMudhra intermediate keys under 256.
 
 Page: https://nanobotco.github.io/php-patch/
