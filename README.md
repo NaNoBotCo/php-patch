@@ -7,4 +7,4 @@ Live: https://nanobotco.github.io/php-patch/
 - `docs/index.html` — the whole page; data and scripts inline.
 - `docs/card.png` — share card, drawn from `tools/card.html` with headless Chrome.
 
-Facts read 21 Oct 2026, 15:15 UTC, from php.net, Sansec, Tenable, W3Techs and others; each source is linked at the foot of the page.
+Facts read 21 Oct 2026, 15:15 UTC, from php.net, Sansec, Tenable, W3Techs and others; each source is linked at the foot of the page. Scores, setups, fixed builds and CVE-2026-115560 re-read 24 Oct 2026 at PHP's advisories, NVD, Debian, Ubuntu, Red Hat, CloudLinux and Cloudflare.
