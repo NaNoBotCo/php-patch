@@ -468,7 +468,7 @@ h1 em.out{color:var(--hot)}
         <li data-k="French prefectures"><span class="t">Wed</span><p><i class="and">and</i> France's Interior Ministry switches off the prefecture sites, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
         <li data-k="German federal sites|Belgian foreign ministry"><span class="t">Wed</span><p><i class="and">and</i> Germany's federal IT service takes federal sites down, and Belgium's foreign ministry does the same, <span class="src"><a href="https://www.globalbankingandfinance.com/factbox-websites-taken-offline-over-php-risks/">Reuters</a></span></p></li>
         <li class="big"><span class="t">12:55</span><p><i class="and">and</i> the Prime Minister of Japan, Sanae Takaichi, posts at 9:55 pm Tokyo time, 5:55 am in California: patch tonight, and if you can't, consider stopping your website. <span class="src"><a href="https://internet.watch.impress.co.jp/docs/news/2150203.html">INTERNET Watch</a></span></p></li>
-        <li><span class="t">14:00</span><p><i class="and">and</i> PHP ships the fix. <span class="src"><a href="https://www.php.net/">php.net</a></span></p></li>
+        <li><span class="t">14:00</span><p><i class="and">and</i> PHP ships the fix. <span class="src"><a href="https://www.php.net/archive/2026.php#2026-10-21-1">php.net</a></span></p></li>
         <li><span class="t">15:20</span><p><i class="and">and</i> CERT-EU tells EU bodies to cut internet-facing systems off until the fix is in and checked, <span class="src"><a href="https://cert.europa.eu/publications/security-advisories/2026-018/">CERT-EU</a></span></p></li>
         <li><span class="t">Wed</span><p><i class="and">and</i> the NSA says take sites offline if they can't be updated, the UK's NCSC says consider it, and CISA says patch now, <span class="src"><a href="https://www.nbcnews.com/tech/security/critical-vulnerabilities-php-update-systems-rcna604751">NBC</a> · <a href="https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php">NCSC</a></span></p></li>
         <li data-k="Aula|Copenhagen|DMI weather"><span class="t">Wed pm</span><p><i class="and">and</i> Denmark's school platform goes dark, with Copenhagen's city sites and the weather service, <span class="src"><a href="https://cphpost.dk/2026-10-22/news/round-up/security-flaw-in-widely-used-software-forces-danish-websites-offline/">CPH Post</a></span></p></li>
@@ -538,7 +538,7 @@ h1 em.out{color:var(--hot)}
         <p class="small">PHP's title: <i>RCE via stale global state</i>. Data from one request can outlive its memory and be used by the next request on the same worker.</p>
       </div>
     </div>
-    <p class="small muted">RCE: remote code execution, running commands on someone else's computer. watchTowr rated the bugs 10.0. Sansec reports one path can also leak memory from other visitors' requests, such as passwords and session tokens.</p>
+    <p class="small muted">RCE: remote code execution, running commands on someone else's computer. PHP scores both bugs 9.2 on CVSS v4, a 0-to-10 severity scale; NVD adds CVSS 3.1 scores of 9.8 for CVE-2026-109618 and 8.1 for CVE-2026-109619. The PHP Foundation says a 10.0 that circulated during the leak was wrong. <span class="src"><a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w">PHP</a> · <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-109618">NVD</a> · <a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a></span> Sansec reports one path can also leak memory from other visitors' requests, such as passwords and session tokens.</p>
 
     <h3>The hole is in PHP, under the app</h3>
     <div class="path" role="list">
@@ -654,8 +654,8 @@ h1 em.out{color:var(--hot)}
 <section id="who">
   <div class="wrap">
     <div class="eyebrow">Who</div>
-    <h2>Half of PHP websites got a ready-made fix. The other half need a hand patch or an upgrade</h2>
-    <p>PHP shipped new releases only for the branches it still supports, 8.2 to 8.5. For 7.4, 8.0 and 8.1 it published a bare source patch: useful to people who build PHP themselves or have a vendor who backports it, of little use to most site owners. Older branches get nothing.</p>
+    <h2>Half of PHP websites have a fixed release from PHP. The other half depend on a vendor's backport or an upgrade</h2>
+    <p>PHP shipped new releases only for the branches it still supports, 8.2 to 8.5; 8.2.35 is the oldest. For 7.4, 8.0 and 8.1 it published minimal source backports, for people who build PHP themselves or have no LTS vendor. Older branches get nothing from PHP. Vendors ship their own fixed builds of older branches under their own version numbers: Ubuntu 22.04 for PHP 8.1, Red Hat for 8.0 and 7.4, CloudLinux for its alt-php and ea-php builds back to 5.2. <span class="src"><a href="https://www.php.net/archive/2026.php#2026-10-21-1">php.net</a> · <a href="https://ubuntu.com/security/notices/USN-8948-1">Ubuntu</a> · <a href="https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2026-109618.json">Red Hat</a> · <a href="https://cloudlinux.statuspage.io/incidents/zl0vt1yq3dj5">CloudLinux</a></span></p>
 
     <div class="chart">
       <h4>Out of every 100 PHP websites, how many can be fixed, and how?</h4>
@@ -665,7 +665,7 @@ h1 em.out{color:var(--hot)}
           <div class="legend">
             <span><i class="sw good">✓</i>Patched</span>
             <span><i class="sw warn">~</i>Fix exists, not applied</span>
-            <span><i class="sw crit">✕</i>No fix for this version</span>
+            <span><i class="sw crit">✕</i>No patch from PHP</span>
           </div>
           <div class="waffle" id="waffle" role="img" aria-live="polite"></div>
         </div>
@@ -685,14 +685,14 @@ h1 em.out{color:var(--hot)}
           <div class="score-row" aria-live="polite">
             <div class="g"><b id="nG">0</b><small>patched</small></div>
             <div class="w"><b id="nW">0</b><small>fix waiting</small></div>
-            <div class="c"><b id="nC">0</b><small>no fix</small></div>
+            <div class="c"><b id="nC">0</b><small>no PHP patch</small></div>
           </div>
           <div class="presets">
             <button class="chip" data-p="0,0,0">Today</button>
             <button class="chip" data-p="100,0,0">Supported sites update</button>
             <button class="chip" data-p="100,100,100">All fixed</button>
           </div>
-          <p class="small muted" style="margin:0">51 have a release, 34 a source patch only, 15 nothing at all.</p>
+          <p class="small muted" style="margin:0">51 have a release, 34 a source patch only, 15 nothing from PHP.</p>
         </div>
       </div>
     </div>
@@ -709,11 +709,11 @@ h1 em.out{color:var(--hot)}
       <p class="small muted" style="margin:10px 0 0">PHP 5.x counts every 5 release; the affected code starts at 5.4.0, so sites on 5.0 to 5.3 may predate it, with many other open holes. PHP 4 (0.1%) is left out.</p>
     </div>
 
-    <h3>Every way of running PHP on the web is exposed</h3>
-    <p>PHP's advisory names five setups and rates <code>mod_php</code> highest, where an attack works before any application code runs.</p>
+    <h3>Five setups in PHP's advisory, mod_php the most exposed</h3>
+    <p>PHP's advisory names five setups and rates <code>mod_php</code> highest, where an attack works before any application code runs. On PHP-FPM an attack depends on the application or the front end: PHP confirmed code execution through application code paths, including session upload progress after an application error, and FPM is open to CVE-2026-109619 behind a front end that passes <code>PHP_VALUE</code> settings. For CVE-2026-109618, PHP's advisory shows no complete FPM exploit. <span class="src"><a href="https://www.php.net/archive/2026.php#2026-10-21-1">php.net</a> · <a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w">GHSA-w8hw</a> · <a href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp">GHSA-6wmf</a> · <a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a></span></p>
     <div class="sapi">
       <div class="top"><b>mod_php</b>Apache module. Highest risk.</div>
-      <div><b>PHP-FPM</b>The usual nginx setup.</div>
+      <div><b>PHP-FPM</b>The usual nginx setup. Depends on the app or front end.</div>
       <div><b>php-cgi</b>Older CGI setups.</div>
       <div><b>FrankenPHP</b>Ships its own PHP.</div>
       <div><b>LiteSpeed</b>lsphp, common on shared hosts.</div>
@@ -815,7 +815,8 @@ h1 em.out{color:var(--hot)}
         </tbody>
       </table>
     </div>
-    <p class="small muted">Distribution builds keep their own numbers: Ubuntu 22.04 <code>8.1.2-1ubuntu2.28</code>, 24.04 <code>8.3.6-0ubuntu0.24.04.13</code>, 26.04 <code>8.5.4-0ubuntu1.5</code>; Debian 13 <code>8.4.27-1~deb13u1</code>. Debian 12 was pending at the time of writing.</p>
+    <p class="small muted">Distribution builds keep their own numbers: Ubuntu 22.04 <code>8.1.2-1ubuntu2.28</code>, 24.04 <code>8.3.6-0ubuntu0.24.04.13</code>, 26.04 <code>8.5.4-0ubuntu1.5</code>; Debian 12 <code>8.2.35-1~deb12u1</code> (DLA-4848-1), Debian 13 <code>8.4.27-1~deb13u1</code>; Red Hat 9 PHP 8.0 <code>8.0.30-8.el9_8.1</code>, and Red Hat 8's php:7.4 and php:8.2 streams; CloudLinux ea-php84 <code>8.4.26-2</code> and alt-php85 <code>8.5.11-5</code>. Debian's tracker lists no Debian 11 package. Read 24 Oct 2026. <span class="src"><a href="https://ubuntu.com/security/notices/USN-8948-1">Ubuntu</a> · <a href="https://security-tracker.debian.org/tracker/CVE-2026-109618">Debian</a> · <a href="https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2026-109618.json">Red Hat</a> · <a href="https://cloudlinux.statuspage.io/incidents/zl0vt1yq3dj5">CloudLinux</a></span></p>
+    <p class="small">On 23 October PHP named a third flaw, CVE-2026-115560, in session upload progress. Cloudflare says it reaches patched releases, 8.5.12 included. It needs an application that sets <code>session.serialize_handler</code> to <code>php_binary</code> or <code>php_serialize</code> and switches it to <code>php</code> with <code>ini_set()</code> before <code>session_start()</code>, with upload progress on. PHP's notice names <code>session.upload_progress.enabled=0</code> as the stopgap until its next regular release, which will carry a full advisory. <span class="src"><a href="https://www.php.net/archive/2026.php#2026-10-23-1">php.net</a> · <a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection">Cloudflare</a></span></p>
 
     <div class="chart">
       <h4>PHP 8.2 is fixed today and out of support in 71 days</h4>
@@ -833,7 +834,7 @@ h1 em.out{color:var(--hot)}
       </div>
       <div class="card">
         <h4>⚙️ php.net's interim settings</h4>
-        The advisory lists settings that close some paths, applied in <code>php.ini</code> or the FPM pool with every worker restarted. <a href="https://www.php.net/">Read them on php.net</a>.
+        The advisory lists settings that close some paths, applied in <code>php.ini</code> or the FPM pool with every worker restarted. <a href="https://www.php.net/archive/2026.php#2026-10-21-1">Read them on php.net</a>.
         <div class="cost">Cost: partial, and some trade memory safety for availability.</div>
       </div>
       <div class="card">
@@ -858,9 +859,11 @@ h1 em.out{color:var(--hot)}
   <div class="wrap">
     <div class="eyebrow">Sources</div>
     <h2>Sources</h2>
-    <p class="small muted">First read 21 Oct 2026, 15:15 UTC; news section read to 23:00 UTC the same day. Early reports disagree on some details; this page follows php.net where they differ.</p>
+    <p class="small muted">First read 21 Oct 2026, 15:15 UTC; news section read to 23:00 UTC the same day. Scores, setups, fixed builds and CVE-2026-115560 re-read 24 Oct 2026 at PHP, NVD and the vendors. Early reports disagree on some details; this page follows php.net where they differ.</p>
     <ol class="sources">
-      <li><a href="https://www.php.net/">php.net</a>, security announcement, 21 Oct 2026: fixed versions, setups at risk, interim settings.</li>
+      <li><a href="https://www.php.net/archive/2026.php#2026-10-21-1">php.net</a>, security advisory, 21 Oct 2026: fixed versions, setups, interim settings. <a href="https://www.php.net/archive/2026.php#2026-10-23-1">php.net, 23 Oct 2026</a>: CVE-2026-115560.</li>
+      <li>PHP's advisories <a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w">GHSA-w8hw-w9fx-j79w</a> (CVE-2026-109618) and <a href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp">GHSA-6wmf-4rv5-p3rp</a> (CVE-2026-109619): scores, setups, FPM paths. <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-109618">NVD CVE-2026-109618</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-109619">NVD CVE-2026-109619</a>: CVSS 3.1 scores.</li>
+      <li><a href="https://security-tracker.debian.org/tracker/CVE-2026-109618">Debian security tracker</a> and <a href="https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2026-109618.json">Red Hat security data</a>, read 24 Oct 2026: fixed packages.</li>
       <li><a href="https://sansec.io/research/php2shell">Sansec</a>, PHP2Shell: confirmed apps, timeline, stopgaps, history since 2004.</li>
       <li><a href="https://www.tenable.com/blog/php2shell-cve-2026-109618-cve-2026-109619-frequently-asked-questions-about-critical-php-remote">Tenable</a>, FAQ: ratings, leak, Cloudflare, host estimates by Silas Cutler and Henk Poley.</li>
       <li><a href="https://en.wikipedia.org/wiki/PHP2Shell">Wikipedia</a>, PHP2Shell: discovery under OpenAI's Patch the Planet, advisory titles, 13:34 UTC advisories, Wikimedia.</li>
@@ -868,7 +871,7 @@ h1 em.out{color:var(--hot)}
       <li><a href="https://www.bleepingcomputer.com/news/security/php-ships-emergency-patches-for-critical-php2shell-flaws/">BleepingComputer</a>: VirusTotal host count, Gina Peter Banyard.</li>
       <li><a href="https://phoenix.security/php-core-rce-cve-2026-109618-109619-critical-remote-code-execution/">Phoenix Security</a>: Mallory.ai Shodan counts by version and country, signs of a break-in.</li>
       <li><a href="https://ma.ttias.be/php-cve-2026-109618-patch/">Mattias Geniar</a>: commands per platform, restarts, checking for old PHP in memory.</li>
-      <li><a href="https://ubuntu.com/blog/php2shell-vulnerability-fixes-available">Ubuntu</a>: fixed package versions.</li>
+      <li><a href="https://ubuntu.com/blog/php2shell-vulnerability-fixes-available">Ubuntu</a> and <a href="https://ubuntu.com/security/notices/USN-8948-1">USN-8948-1</a>: fixed package versions.</li>
       <li><a href="https://wordify.com/blog/php-security-vulnerability-wordpress-october-2026/">Wordify</a>, live updates: 08:44 and 12:00 UTC reports, PHP support dates.</li>
       <li><a href="https://w3techs.com/technologies/details/pl-php">W3Techs</a>: PHP share of websites and version split (<a href="https://w3techs.com/technologies/details/pl-php/8">8.x</a>, <a href="https://w3techs.com/technologies/details/pl-php/7">7.x</a>), 21 Oct 2026.</li>
       <li><a href="https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/">PHP Foundation</a>, 21 Oct: timeline, 2024 audit, inbox figures, embargo, funding.</li>
@@ -951,7 +954,7 @@ function judge(raw){
   if(FIX[br]!==undefined){
     if(pat===null)return {cls:'warn',icon:'?',title:'PHP '+br+': fixed in '+br+'.'+FIX[br],body:'Add the last number to check, for example '+br+'.'+FIX[br]+'.'};
     if(pat>=FIX[br])return {cls:'good',icon:'✓',title:'PHP '+br+'.'+pat+' has the fix',body:'Restart PHP-FPM or Apache if you have not since updating.'+(br==='8.2'?' PHP 8.2 security support ends 31 Dec 2026; plan 8.3 or newer.':'')+cliNote};
-    if(distro)return {cls:'warn',icon:'~',title:'PHP '+br+'.'+pat+', distribution build',body:'Ubuntu and Debian patch without changing this number. Check the package version instead: <code>dpkg -l \'php*\' | grep '+br+'</code>. Ubuntu 24.04 is fixed at <code>8.3.6-0ubuntu0.24.04.13</code>.'+cliNote};
+    if(distro)return {cls:'warn',icon:'~',title:'PHP '+br+'.'+pat+', distribution build',body:'Ubuntu and CloudLinux patch without changing this number; Debian 12 and 13 moved to 8.2.35 and 8.4.27. Check the package version instead: <code>dpkg -l \'php*\' | grep '+br+'</code>. Ubuntu 24.04 is fixed at <code>8.3.6-0ubuntu0.24.04.13</code>.'+cliNote};
     return {cls:'crit',icon:'✕',title:'PHP '+br+'.'+pat+' is open',body:'Update to <b>'+br+'.'+FIX[br]+'</b> or later, then restart PHP. <a href="#fix">Fix steps</a>.'+cliNote};
   }
   if(ENDED[br]){
@@ -961,7 +964,7 @@ function judge(raw){
   if(maj===8&&min>5)return {cls:'warn',icon:'?',title:'PHP '+br+' is a pre-release',body:'8.6 is a release candidate, not for production. Use 8.5.12.'};
   if(maj>8||maj===6||maj<4)return {cls:'warn',icon:'?',title:'PHP '+br+' is not a released branch',body:'Check the number and try again.'};
   if(maj<5||(maj===5&&min<4))return {cls:'crit',icon:'✕',title:'PHP '+br+' has years of open holes',body:'The affected code starts at 5.4.0, but this version has had no fixes for a decade. Move the site to PHP 8.3 or newer, or off the public internet.'};
-  return {cls:'crit',icon:'✕',title:'PHP '+br+': no fix exists',body:'PHP gives no patch for this branch. Move the site to PHP 8.3 or newer, or take it off the public internet until then (UK NCSC advice). <a href="#fix">Fix steps</a>.'};
+  return {cls:'crit',icon:'✕',title:'PHP '+br+': no patch from PHP',body:'PHP gives no patch for this branch; some vendors ship a fixed build, such as CloudLinux alt-php and ea-php back to 5.2. Otherwise move the site to PHP 8.3 or newer, or take it off the public internet until then (UK NCSC advice). <a href="#fix">Fix steps</a>.'};
 }
 function showVerdict(el,v){if(!v)return;el.className='verdict '+v.cls;el.innerHTML='<h3><span class="ico '+v.cls+'" aria-hidden="true">'+v.icon+'</span>'+esc(v.title)+'</h3><p>'+v.body+'</p>'}
 var HIRE={server:'Hongdam fixes PHP, a server',upgrade:'Hongdam moves a site off PHP 7.4–8.1'};
@@ -1020,13 +1023,13 @@ var GLYPH={good:'✓',warn:'~',crit:'✕'};
       list.forEach(function(x,i){
         var fixed=i<k,st=fixed?'good':(g==='crit'?'crit':'warn');
         x.el.className=st;x.el.textContent=GLYPH[st];
-        var how=fixed?(g==='good'?'updated to the fixed release':g==='warn'?'backported or upgraded':'moved to PHP 8 or retired'):(g==='crit'?'no fix for this version':'fix exists, not applied');
+        var how=fixed?(g==='good'?'updated to the fixed release':g==='warn'?'backported or upgraded':'moved to PHP 8 or retired'):(g==='crit'?'no patch from PHP':'fix exists, not applied');
         x.tipHtml='<b>PHP '+x.b.v+'</b><br>'+how;
         if(st==='good')G++;else if(st==='warn')Wn++;else C++;
       });
     });
     $('#nG').textContent=G;$('#nW').textContent=Wn;$('#nC').textContent=C;
-    W.setAttribute('aria-label',G+' of 100 PHP websites patched, '+Wn+' with a fix waiting, '+C+' with no fix for their version.');
+    W.setAttribute('aria-label',G+' of 100 PHP websites patched, '+Wn+' with a fix waiting, '+C+' with no patch from PHP for their version.');
   }
   cells.forEach(function(x){x.el.addEventListener('pointermove',function(e){showTip(e,x.tipHtml)});x.el.addEventListener('pointerdown',function(e){showTip(e,x.tipHtml)});x.el.addEventListener('pointerleave',hideTip)});
   ['#s1','#s2','#s3'].forEach(function(id){$(id).addEventListener('input',paint)});
@@ -1269,7 +1272,7 @@ var HOST={
  ]},
  rhel:function(b){return [
   {t:'See what is installed',d:C(["rpm -qa 'php*' | sort",'dnf module list --enabled php'])},
-  {t:'Upgrade',d:C(["sudo dnf upgrade 'php*'","dnf updateinfo list --security | grep php"])+'<p>Red Hat packages trailed the release at the time of writing; check access.redhat.com. The Remi repository had no fix on release day: switch to distribution packages or build from source. RHEL 8\'s default 7.2 stream gets no fix; change streams:</p>'+C(['sudo dnf module reset -y php','sudo dnf module enable -y php:8.2','sudo dnf distro-sync -y'])},
+  {t:'Upgrade',d:C(["sudo dnf upgrade 'php*'","dnf updateinfo list --security | grep php"])+'<p>Red Hat lists fixed packages for RHEL 10, RHEL 9 (PHP 8.0 and the php:8.2 and php:8.3 streams) and RHEL 8 (the php:7.4 and php:8.2 streams); the RHEL 9 php:8.4 stream was listed as affected with no fix on 24 October. The Remi repository had no fix on release day: switch to distribution packages or build from source. RHEL 8\'s default 7.2 stream gets no fix; change streams:</p>'+C(['sudo dnf module reset -y php','sudo dnf module enable -y php:8.2','sudo dnf distro-sync -y'])},
   {t:'Restart every PHP process',d:C(['sudo systemctl restart php-fpm','sudo systemctl restart httpd'])},
   {t:'Check nothing runs the old PHP',d:C(["sudo grep -lE ' /(usr|lib|opt).*\\(deleted\\)$' /proc/[0-9]*/maps"])}
  ]},
@@ -1294,7 +1297,7 @@ function planVerdict(){
   var el=$('#planVerdict');
   if(FIX[branch])return showVerdict(el,{cls:'good',icon:'✓',title:'Target: PHP '+branch+'.'+FIX[branch]+' or later',body:branch==='8.2'?'8.2 security support ends 31 Dec 2026. Patch now, then plan 8.3 or newer.':'A fixed release exists for your branch.'});
   if(ENDED[branch])return showVerdict(el,{cls:'warn',icon:'~',title:'PHP '+branch+': no new release',body:'Best: move to 8.3 or newer. Meanwhile, a backport from your distribution or LTS vendor, or the stopgaps below.'});
-  if(branch==='old')return showVerdict(el,{cls:'crit',icon:'✕',title:'No fix exists for your branch',body:'Move the site to PHP 8.3 or newer. Until then, put it behind a firewall or take it off the public internet.'});
+  if(branch==='old')return showVerdict(el,{cls:'crit',icon:'✕',title:'No patch from PHP for your branch',body:'Some vendors ship a fixed build, such as CloudLinux alt-php and ea-php back to 5.2. Otherwise move the site to PHP 8.3 or newer, and until then put it behind a firewall or take it off the public internet.'});
   showVerdict(el,{cls:'warn',icon:'?',title:'Find your version first',body:'The first step below shows where.'});
 }
 function drawSteps(){
